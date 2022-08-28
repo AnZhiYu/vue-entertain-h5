@@ -7,7 +7,10 @@
         <div class="pageloading-loading_bg"></div>
         <div class="pageloading-loading_border"></div>
       </div>
-      {{ this.handleProcess }}
+      <div class="pageloading-count">
+        {{ this.handleProcess }}%
+      </div>
+
       <!-- <img class="pageloading-loading" src="../../assets/pemo.png" /> -->
     </div>
     <div class="loader1 wrap">2</div>
@@ -80,6 +83,22 @@ export default {
       left: 171px;
     }
 
+    &-count {
+      position: absolute;
+      top: 285px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      background: url("../../assets/cloud.png") no-repeat center/ cover;
+      width: 120px;
+      height: 17px;
+      text-align: center;
+      color: #d18106;
+      font-size: 13px;
+      line-height: 17px;
+      font-family: AlibabaPuHuiTi;
+    }
+
     &-loading {
       width: 266px;
       height: 24px;
@@ -88,7 +107,6 @@ export default {
       left: 0;
       right: 0;
       margin: 0 auto;
-      // background: url("../../assets/precess.png") no-repeat center/ cover;
       overflow: hidden;
       padding: 6px 0px;
       box-sizing: border-box;
