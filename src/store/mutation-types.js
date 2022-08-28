@@ -1,0 +1,9 @@
+export const TOKEN = 'TOKEN';
+export const ROLES = 'Roles';
+export const USERINFO = 'USERINFO';
+export const SET_USERINFO = 'SET_USERINFO';
+export const MAKER_EDIT_INFOR = 'MAKER_EDIT_INFOR';
+export const SET_CERTIFICATION_FORM = 'SET_CERTIFICATION_FORM';
+export const SET_MEMBER_SORT = 'SET_MEMBER_SORT';
+export const SET_MEMBER_THEME = 'SET_MEMBER_THEME';
+export const SET_MEMBER_INFOR = 'SET_MEMBER_INFOR';

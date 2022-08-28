@@ -1,0 +1,324 @@
+<template>
+  <div class="page transaction">
+   这是首页
+  </div>
+</template>
+
+<script>
+import BottomTabBar from "@/components/common/BottomTabBar.vue";
+import { CellGroup, Tab, Tabs, List, Cell, PullRefresh, Toast } from "vant";
+import {
+  querySellList,
+  queryBuyList,
+  queryMyOrderList,
+  queryOrderPage,
+  queryCancelPendingOrder
+} from "@/api/transaction";
+import LoadingPage from "@/components/common/LoadingPage.vue";
+import { mapState } from "vuex";
+import CommonTitle from "@/components/common/CommonTitle.vue";
+import wkbOverlay from "@/components/common/wkbOverlay.vue";
+import Drage from "@/components/common/Drage.vue";
+import { isShowTime } from "@/config";
+import TransactionItem from "./components/TransactionItem/Index.vue";
+import MyOrderItem from "./components/MyOrderItem/Index.vue";
+import MyPenddingOrderItem from "./components/MyPenddingOrderItem/Index.vue";
+
+export default {
+  name: "transaction",
+  components: {
+    BottomTabBar,
+    LoadingPage,
+    Drage,
+    CommonTitle,
+    TransactionItem,
+    wkbOverlay,
+    MyOrderItem,
+    MyPenddingOrderItem,
+    [Tab.name]: Tab,
+    [Tabs.name]: Tabs,
+    [List.name]: List,
+    [Cell.name]: Cell,
+    [PullRefresh.name]: PullRefresh,
+    [CellGroup.name]: CellGroup
+  },
+  data() {
+    return {
+      active: 0,
+      list: [],
+      itemList1: [],
+      itemList2: [],
+      itemList3: [],
+      itemList4: [],
+      loading: false,
+      finished: false,
+      refreshLoading: false,
+      pageLoading: true,
+      page: 1,
+      size: 10,
+      show: false,
+      cancelOrderId: null,
+      isShowTime
+    };
+  },
+  computed: {
+    ...mapState(["dictValue"])
+  },
+
+  methods: {
+    showOverlay(id) {
+      this.show = true;
+      this.cancelOrderId = id;
+    },
+    cancelPendingOrder() {
+      Toast.loading({
+        message: "撤销中...",
+        forbidClick: true,
+        duration: 0
+      });
+      queryCancelPendingOrder({
+        id: this.cancelOrderId
+      })
+        .then(() => {
+          this.show = false;
+          Toast.clear();
+          Toast.success("撤销成功");
+          this.onTabClick();
+        })
+        .catch(err => {
+          Toast.clear();
+          Toast.fail({
+            message: err.message,
+            forbidClick: true
+          });
+        });
+    },
+    getDictValue() {
+      this.$store.dispatch("getDictValue");
+    },
+    onRefresh() {
+      this.onTabClick();
+      this.refreshLoading = false;
+    },
+    selectTrade() {
+      this.$router.push({
+        path: "/transaction/trade"
+      });
+    },
+    onTabClick() {
+      this.loading = true;
+      this.finished = false;
+      this.itemList1 = [];
+      this.itemList2 = [];
+      this.itemList3 = [];
+      this.itemList4 = [];
+      this.page = 1;
+      this.size = 10;
+      if (this.active === 0) {
+        this.SearchSellList();
+      }
+      if (this.active === 1) {
+        this.SearchBuyList();
+      }
+      if (this.active === 2) {
+        this.SearchMyOrderList();
+      }
+      if (this.active === 3) {
+        this.SearchMyPendingOrderList();
+      }
+    },
+    SearchSellList(flag) {
+      if (flag) {
+        this.itemList1 = [];
+        this.page = 1;
+      }
+      querySellList({
+        page: this.page,
+        size: this.size
+      }).then(res => {
+        this.loading = false;
+        this.finished = false;
+        this.pageLoading = false;
+        this.itemList1 = this.itemList1.concat(res.list);
+        if (res.page * res.size < res.total) {
+          this.page = res.page * 1 + 1;
+        } else {
+          this.finished = true;
+        }
+      });
+    },
+    SearchBuyList(flag) {
+      if (flag) {
+        this.itemList2 = [];
+        this.page = 1;
+      }
+      queryBuyList({
+        page: this.page,
+        size: this.size
+      }).then(res => {
+        this.loading = false;
+        this.finished = false;
+        this.pageLoading = false;
+        this.itemList2 = this.itemList2.concat(res.list);
+        if (res.page * res.size < res.total) {
+          this.page = res.page * 1 + 1;
+        } else {
+          this.finished = true;
+        }
+      });
+    },
+    SearchMyOrderList(flag) {
+      if (flag) {
+        this.itemList3 = [];
+        this.page = 1;
+      }
+      queryOrderPage({
+        page: this.page,
+        size: this.size
+      }).then(res => {
+        this.loading = false;
+        this.finished = false;
+        this.pageLoading = false;
+        this.itemList3 = this.itemList3.concat(res.list);
+        if (res.page * res.size < res.total) {
+          this.page = res.page * 1 + 1;
+        } else {
+          this.finished = true;
+        }
+      });
+    },
+    SearchMyPendingOrderList(flag) {
+      if (flag) {
+        this.itemList4 = [];
+        this.page = 1;
+      }
+      queryMyOrderList({
+        page: this.page,
+        size: this.size
+      }).then(res => {
+        this.loading = false;
+        this.finished = false;
+        this.pageLoading = false;
+        this.itemList4 = this.itemList4.concat(res.list);
+        if (res.page * res.size < res.total) {
+          this.page = res.page * 1 + 1;
+        } else {
+          this.finished = true;
+        }
+      });
+    }
+  },
+  created() {
+    // 卖单列表
+    this.active = this.$route.query.active ? Number(this.$route.query.active) : 0;
+    this.getDictValue();
+  }
+};
+</script>
+<style lang="less" scoped>
+.transaction {
+  font-size: 15px;
+  padding-bottom: 59px;
+  position: relative;
+  &-title {
+    width: 100%;
+    position: fixed;
+    text-align: center;
+    background: #fff;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    text-align: center;
+    color: #333333;
+    font-size: 17px;
+    font-family: PingFang SC;
+    box-shadow: 0px 5px 10px 0px rgba(215, 241, 255, 0.2);
+    border-radius: 0px 0px 30px 30px;
+    padding: 10px 0;
+    &-now {
+      margin: 0 auto;
+      width: 290px;
+      height: 29px;
+      border: 2px solid;
+      border-image: linear-gradient(35deg, #00f1f4 45%, #00f1f4 50%, #f42678 55%, #f42678 100%) 10;
+      box-shadow: inset 0px 3px 2px 0px rgba(244, 38, 120, 0.1),
+        0px 3px 2px 0px rgba(244, 38, 120, 0.1);
+      border-radius: 1px;
+      margin: 23px auto 7px;
+    }
+  }
+
+  &-fixed {
+    // position: absolute;
+    bottom: 155px;
+    right: 15px;
+    width: 100px;
+    height: 30px;
+    background: #000000;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.29);
+    border-radius: 2px;
+    text-align: center;
+    color: #fff;
+    line-height: 30px;
+  }
+
+  /deep/ .van-list__finished-text {
+    background-color: #fafafa;
+  }
+  &-tab {
+    min-height: 550px;
+    padding: 0px 15px 0;
+    /deep/ .van-tabs__wrap {
+      box-shadow: 0px 5px 10px 0px rgba(215, 241, 255, 0.2);
+      height: 40px;
+      position: fixed;
+      width: 92%;
+      z-index: 5;
+    }
+    /deep/ .van-tabs__line {
+      width: 6% !important;
+      background-color: #00f1f4;
+    }
+
+    /deep/.van-hairline--top-bottom:after,
+    .van-hairline-unset--top-bottom:after {
+      border-width: 0px;
+    }
+
+    /deep/ .van-list {
+      padding-top: 80px;
+    }
+
+    .item {
+      &-header {
+        display: flex;
+        justify-content: space-between;
+        // padding: 0 8px;
+        width: 92%;
+        padding-top: 40px;
+        position: fixed;
+        z-index: 0;
+        background: #fafafa;
+        &_type {
+          width: 70px;
+          text-align: center;
+          font-size: 13px;
+          font-family: PingFang SC;
+          color: #333333;
+          height: 40px;
+          line-height: 40px;
+          white-space: nowrap;
+        }
+        .order {
+          width: 40px;
+        }
+        .status,
+        .seller,
+        .buyer {
+          width: 40px;
+        }
+      }
+    }
+  }
+}
+</style>

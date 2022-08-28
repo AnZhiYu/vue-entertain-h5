@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no
+      ,viewport-fit=cover"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="keywords" content="大家,链媒体" />
+    <link
+      rel="shortcut icon"
+      href="./favicon.ico"
+      type="image/x-icon"
+    />
+    <meta name="description" content="大家,链媒体，链接，你未曾领略的新大陆" />
+    <title>下载微客宝</title>
+  </head>
+  <style>
+    html,
+    body,
+    div,
+    span,
+    applet,
+    object,
+    iframe,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    blockquote,
+    pre,
+    a,
+    abbr,
+    acronym,
+    address,
+    big,
+    cite,
+    code,
+    del,
+    dfn,
+    em,
+    img,
+    ins,
+    kbd,
+    q,
+    s,
+    samp,
+    small,
+    strike,
+    strong,
+    sub,
+    sup,
+    tt,
+    var,
+    b,
+    u,
+    i,
+    center,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul,
+    li,
+    fieldset,
+    form,
+    label,
+    legend,
+    table,
+    caption,
+    tbody,
+    tfoot,
+    thead,
+    tr,
+    th,
+    td,
+    article,
+    aside,
+    canvas,
+    details,
+    embed,
+    figure,
+    figcaption,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    output,
+    ruby,
+    section,
+    summary,
+    time,
+    mark,
+    audio,
+    video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline;
+    }
+    /* HTML5 display-role reset for older browsers */
+    article,
+    aside,
+    details,
+    figcaption,
+    figure,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    section {
+      display: block;
+    }
+    body {
+      line-height: 1;
+    }
+    ol,
+    ul {
+      list-style: none;
+    }
+    blockquote,
+    q {
+      quotes: none;
+    }
+    blockquote:before,
+    blockquote:after,
+    q:before,
+    q:after {
+      content: "";
+      content: none;
+    }
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+    a {
+      text-decoration: none;
+      color: #333;
+    }
+    .fl {
+      float: left;
+    }
+    .fr {
+      float: right;
+    }
+    .clearfix:after {
+      clear: both;
+      content: " ";
+      display: block;
+      height: 0;
+      overflow: hidden;
+      visibility: hidden;
+    }
+    html,
+    body {
+      font-size: 26.667vw;
+      height: 100%;
+      /* background: linear-gradient(to bottom, #000, #b52196); */
+      background: url("./img/regist-bg.png")
+        no-repeat center / cover;
+    }
+    .page {
+      height: 100%;
+      position: relative;
+      padding: 23px;
+      box-sizing: border-box;
+    }
+
+    .page-wap {
+      width: 100%;
+      height: 100%;
+      /* background-color: #ddd; */
+      background-image: url("./img/regist-bg.png");
+      background-position: center top;
+      background-size: cover;
+      background-attachment: fixed;
+      -webkit-filter: blur(2px);
+      -moz-filter: blur(2px);
+      -ms-filter: blur(2px);
+      -o-filter: blur(2px);
+      filter: blur(2px);
+    }
+    .mask {
+      display: none;
+    }
+    .wechat-guide {
+      display: block;
+      position: fixed;
+      right: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+    }
+    .wechat-guide img {
+      float: right;
+      text-align: right;
+      width: 1.9rem;
+    }
+    .wechat-guide p {
+      margin-top: 2.6rem;
+      text-align: center;
+      color: #fff;
+      font-size: 0.16rem;
+    }
+    .header-title {
+      padding-top: 1.53rem;
+      font-family: PingFang SC;
+      font-weight: 400;
+      color: #ffffff;
+      text-align: center;
+    }
+    .header-title .name {
+      height: 0.22rem;
+      font-size: 0.16rem;
+      font-family: PingFang SC;
+      font-weight: 400;
+      color: #ffffff;
+      text-shadow: 0px 1px 1px rgba(205, 45, 167, 0.24);
+      letter-spacing: 0.06rem;
+    }
+    .header-title .desc {
+      letter-spacing: 0.05rem;
+      margin-top: 0.26rem;
+      font-size: 0.14rem;
+      font-family: PingFang SC;
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 0.31rem;
+      text-align: center;
+      text-shadow: 0px 1px 1px rgba(205, 45, 167, 0.24);
+    }
+
+    .app-info {
+      width: 2.2rem;
+      margin: auto;
+      text-align: left;
+      font-size: 12px;
+      line-height: 20px;
+    }
+    /* .app-info p{} */
+    .header-title-b {
+      font-size: 0.2rem;
+      font-family: PingFang SC;
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 0.06rem;
+      text-align: center;
+      padding: 0.3rem 0;
+      position: absolute;
+      z-index: 2;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      margin: auto;
+    }
+
+    .header-title-b .title {
+      margin-bottom: 0.2rem;
+    }
+    .header-title-b .logo {
+      background: url("./img/logo.png")
+        no-repeat center / cover;
+      margin-right: 32px;
+      margin: 1.2rem auto 0rem;
+      width: 2.16rem;
+      height: 1.98rem;
+      display: block;
+    }
+    .header-title-b .btn-down {
+      /* display: inline-block;
+      height: 0.31rem;
+      padding: 0 0.52rem;
+      background: #25f0dc;
+      border: 0.01rem solid #ffffff;
+      border: 3px solid #ffffff;
+      font-family: PingFang SC;
+      font-weight: 400;
+      color: #fff;
+      text-align: center; */
+      font-size: 0.18rem;
+      line-height: 0.4rem;
+      margin: auto;
+      margin-top: 30px;
+      width: 2.5rem;
+      height: 0.4rem;
+      background: rgba(0, 0, 0, 0.54);
+      box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.39);
+      /* opacity: 0.54; */
+    }
+  </style>
+  <body>
+    <div class="page">
+      <!-- <header class="header-title">
+        <h3 class="name">大家，链媒体</h3>
+        <p class="desc">链接，你未曾领略的新大陆</p>
+      </header> -->
+      <div class="page-wap"></div>
+
+      <div id="btn-eare" class="header-title-b">
+        <a class="logo"></a>
+        <div class="title">微客宝</div>
+        <div class="app-info" id="app-info">
+          <div class="clearfix">
+            <p class="fl">大小：<span id="appsize">45M</span></p>
+            <p class="fr">版本：<span id="appversion">1.01</span></p>
+          </div>
+          <div class="app-info">
+            时间：<span class="apptime" id="apptime">2020.10.22</span>
+          </div>
+        </div>
+        <div
+          class="btn-down"
+          id="btn-download"
+          onclick="
+          var userAgent = navigator.userAgent;
+      var versions = {
+        android:
+          userAgent.indexOf('Android') > -1 || userAgent.indexOf('Adr') > -1,
+        ios: !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        weixin: userAgent.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
+      };
+
+      if (versions.weixin) {
+          alert('点击右上角, 浏览器中打开下载')
+          } else {
+            if (versions.ios) {
+          window.location.href =
+                'http://front.wkbwkb.com/wkb888-release.apk';
+        } else {
+          window.location.href =
+            'http://front.wkbwkb.com/wkb888-release.apk';
+        }
+        }
+
+          "
+        >
+          立即下载 APP
+        </div>
+      </div>
+
+      <!-- <div id="mask" class="mask">
+        <img src="../assets/images/groupon-arrow.png" />
+        <p>请通过浏览器打开下载</p>
+      </div> -->
+    </div>
+  </body>
+  <script>
+    // 在努比亚手机的浏览器中会有兼容问题，无法执行script中的代码
+    var userAgent = navigator.userAgent;
+    var versions = {
+      trident: userAgent.indexOf("Trident") > -1, //IE内核
+      presto: userAgent.indexOf("Presto") > -1, //opera内核
+      webKit: userAgent.indexOf("AppleWebKit") > -1, //苹果、谷歌内核
+      gecko:
+        userAgent.indexOf("Gecko") > -1 && userAgent.indexOf("KHTML") == -1, //火狐内核
+      mobile: !!userAgent.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android:
+        userAgent.indexOf("Android") > -1 || userAgent.indexOf("Adr") > -1, //android终端
+      iPhone: userAgent.indexOf("iPhone") > -1, //是否为iPhone或者QQHD浏览器
+      iPad: userAgent.indexOf("iPad") > -1, //是否iPad
+      webApp: userAgent.indexOf("Safari") == -1, //是否web应该程序，没有头部与底部
+      weixin: userAgent.indexOf("MicroMessenger") > -1, //是否微信 （2015-01-22新增）
+      qq: userAgent.match(/\sQQ/i) == " qq", //是否QQ
+    };
+
+    var btnDownload = document.getElementById("btn-eare");
+    window.onload = function() {
+      if (versions.weixin) {
+        alert("点击右上角, 浏览器中打开下载");
+      } else {
+        if (versions.ios) {
+          window.location.href = "http://front.wkbwkb.com/wkb888-release.apk"; //跳转到下载地址
+        } else {
+          window.location.href = "http://front.wkbwkb.com/wkb888-release.apk"; //跳转到下载地址
+        }
+      }
+    };
+
+    function ajaxPost(url, data, callback) {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.send(data);
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+          if (xhr.status === 200) {
+            callback(xhr.responseText);
+          } else {
+            console.log("失败了");
+            var appInfo = document.getElementById("app-info");
+            appInfo.style.display = "none";
+          }
+        } else {
+        }
+      };
+    }
+
+    // 调用
+    ajaxPost("http://front.wkbwkb.com/api/v1/client/lastVersion", "", function(
+      data
+    ) {
+      // 后台返回的数据就是 字符串类型。要转成json，必须自己手动转换。
+      var user = JSON.parse(data);
+      console.log(user);
+      console.log(user.respData);
+      if (user.respData) {
+        var appversion = document.getElementById("appversion");
+        var apptime = document.getElementById("apptime");
+        var appsize = document.getElementById("appsize");
+        appversion.innerHTML = user.respData.version
+          ? user.respData.version
+          : "";
+        apptime.innerHTML = user.respData.release_time
+          ? user.respData.release_time
+          : "";
+        appsize.innerHTML = user.respData.size ? user.respData.size : "";
+      }
+    });
+    // btnDownload.onclick = function (event) {
+    //   if (versions.weixin) {
+    //     return;
+    //   }
+    //   console.log("下载大家app");
+    //   if (versions.ios) {
+    //     var loadDateTime = new Date();
+    //     var timeOutDateTime = new Date();
+    //     setTimeout(() => {
+    //       if (timeOutDateTime - loadDateTime < 5000) {
+    //         window.location.href = "http://front.wkbwkb.com/wkb888-release.apk"; //跳转到下载地址
+    //       } else {
+    //         window.close();
+    //       }
+    //     }, 10);
+    //   } else {
+    //     if (versions.weixin) {
+    //       console.log("微信下载");
+    //     } else {
+    //       window.location.href =
+    //         "http://front.wkbwkb.com/wkb888-release.apk"; //跳转到下载地址
+    //     }
+    //   }
+    // };
+  </script>
+</html>

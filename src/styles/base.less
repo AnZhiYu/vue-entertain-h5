@@ -1,0 +1,136 @@
+@import './vars';
+@import '//at.alicdn.com/t/font_2082717_46nmm3k6ex7.css'; // 开发时直接用网络地址
+.iconfont{
+  font-family:"iconfont" !important;
+  font-size:16px;font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: @info-font-family;
+  font-size: @font-size-md;
+  color: @text-color;
+  background-color: @background-color;
+  -webkit-text-size-adjust: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.page {
+  min-height: 100vh;
+}
+.border-top {
+  position: relative;
+  &::before {
+    content: '';
+    width: 100%;
+    height: 1px;
+    background: #EEEEEE;
+    transform: scaleY(0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.border-right {
+  position: relative;
+  &::before {
+    content: '';
+    height: 100%;
+    width: 1px;
+    background: #EEEEEE;
+    transform: scaleX(0.5);
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.border-bottom {
+  position: relative;
+  &::after {
+    content: '';
+    width: 100%;
+    height: 1px;
+    background: #EEEEEE;
+    transform: scaleY(0.5);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.border-left {
+  position: relative;
+  &::after {
+    content: '';
+    height: 100%;
+    width: 1px;
+    background: #EEEEEE;
+    transform: scaleX(0.5);
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+
+.border-half {
+  position: relative;
+  &::after {
+    content: '';
+    display: block;
+    height: 200%;
+    width: 200%;
+    border: solid 1px #252525;
+    transform: scale(0.5);
+    position: absolute;
+    left: -50%;
+    top: -50%;
+  }
+}
+
+.hairline-common() {
+  content: ' ';
+  position: absolute;
+  pointer-events: none;
+  box-sizing: border-box;
+  transform-origin: center;
+}
+
+.hairline(@border-color: #e5e5e5) {
+  .hairline-common();
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  transform: scale(0.5);
+  border: 0 solid @border-color;
+}
+
+.hairline-bottom(@border-color: #e5e5e5, @left: 0) {
+  .hairline-common();
+  top: auto;
+  left: @left;
+  right: 0;
+  bottom: 0;
+  transform: scaleY(0.5);
+  border-bottom: 1px solid @border-color;
+}
+
+.van-list__finished-text {
+  background-color: #fafafa;
+}
+
+.van-pull-refresh{
+  min-height: 80vh;
+}
+
+.address-dialog {
+  border-radius: 2px !important;
+}
