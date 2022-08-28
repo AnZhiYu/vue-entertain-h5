@@ -10,7 +10,7 @@ export default {
 
   children: [
     {
-      path: '/home',
+      path: '/',
       name: 'Entertain',
       meta: {
         title: '邀请',
