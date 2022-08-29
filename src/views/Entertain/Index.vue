@@ -13,8 +13,15 @@
 
       <!-- <img class="pageloading-loading" src="../../assets/pemo.png" /> -->
     </div>
-    <div class="loader1 wrap">2</div>
-    <div class="loader2 wrap">3</div>
+    <div v-if="shopPageIndex === 2"  class="page2 wrap">
+      <img class="page2-t" src="../../assets/paper.png" />
+      <img class="page2-m" src="../../assets/text2.png" />
+      <img class="page2-b" src="../../assets/button2.png"  @click="goAnswer"/>
+
+    </div>
+    <div class="answer1 wrap">
+      答题
+    </div>
     <div class="loader3 wrap">4</div>
     <div class="loader4 wrap">4</div>
     <div class="loader5 wrap">4</div>
@@ -41,7 +48,13 @@ export default {
       this.process += 1;
       this.timer = setInterval(() => {
         this.process += 1;
-      }, 100);
+      }, 10);
+    },
+    changeIndex() {
+      this.shopPageIndex = 2;
+    },
+    goAnswer() {
+      this.shopPageIndex = 3;
     }
   },
   created() {
@@ -53,6 +66,7 @@ export default {
       if (this.process === 100) {
         // console.log('this.process', this.process);
         clearInterval(this.timer);
+        this.changeIndex();
       }
       return this.process;
     }
@@ -73,7 +87,7 @@ export default {
   }
 
   .pageloading {
-    background: url("../../assets/pg1.png") no-repeat center/ cover;
+    background: url("../../assets/pg1.png") no-repeat center/ auto;
     width: 100%;
     &-pemo {
       width: 41px;
@@ -89,7 +103,7 @@ export default {
       left: 0;
       right: 0;
       margin: 0 auto;
-      background: url("../../assets/cloud.png") no-repeat center/ cover;
+      background: url("../../assets/cloud.png") no-repeat center/ auto;
       width: 120px;
       height: 17px;
       text-align: center;
@@ -143,6 +157,43 @@ export default {
         // top: 0;
       }
     }
+  }
+
+  .page2{
+    background: url("../../assets/pg1.png") no-repeat center/ auto;
+    width: 100%;
+
+    &-t{
+      width: 245px;
+      height: 353px;
+      position: absolute;
+      top: 139px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+    &-m{
+      width: 245px;
+      height: 66px;
+      position: absolute;
+      top: 511px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+    &-b{
+      width: 163px;
+      height: 38px;
+      position: absolute;
+      top: 583px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+  }
+  .answer1{
+    background: url("../../assets/answerbg1.png") no-repeat center/ cover;
+    width: 100%;
   }
 }
 </style>
