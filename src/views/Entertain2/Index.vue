@@ -91,6 +91,8 @@ export default {
   .loader {
     background: url("../../assets/load1-bg.png");
     background-size: 100% 100%;
+    position: absolute;
+    z-index: 4;
   }
   .loader1{
     background: url("../../assets/load2-bg.png");
