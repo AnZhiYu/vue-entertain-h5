@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <!-- eslint-disable vue/valid-v-for -->
 <!-- eslint-disable max-len -->
 <template>
@@ -5,24 +6,40 @@
     <div v-if="shopPageIndex === 1" class="loader wrap">
       <div class="jz"></div>
       <div class="main main-load">
-        <div class="select" v-for="(item, index)  in tabSelectYear" :key= "index" :class="`${selectIndex === item.id ? 'xz' : 'mr'}`" @click="toSelect(item)">
-        <img src="../../assets/flagon.png" v-if="item.id === selectIndex" class="flagon">
-         {{item.name}}
+        <div class="select" v-for="(item, index)  in tabSelectYear" :key="index"
+          :class="`${selectIndex === item.id ? 'xz' : 'mr'}`" @click="toSelect(item, index)">
+          <img src="../../assets/flagon.png" v-if="item.id === selectIndex" class="flagon">
+          {{ item.name }}
         </div>
-        <div class="tijao" @click="answer">{{current_yaer.id === 3?'恭喜，快来开席吧~':'答错了，再来一次吧~'}}</div>
+        <div class="tijao" @click="answer">{{ current_yaer.id === 3 ? '恭喜，快来开席吧~' : '答错了，再来一次吧~' }}</div>
       </div>
     </div>
     <div v-if="shopPageIndex === 2" class="loader1 wrap">
       <div class="load2-jz"></div>
       <div class="main main-load2">
-        <div class="select select2" v-for="(item, index)  in tabSelectFood" :key= "index" :class="`${selectIndex === item.id ? 'xz' : 'mr'}`" @click="toSelect(item)">
-        <img src="../../assets/paint-brush.png" v-if="item.id === selectIndex" class="paint">
-         {{item.name}}
+        <div class="select select2" v-for="(item, index)  in tabSelectFood" :key="index"
+          :class="`${item.isChecked ? 'xz' : 'mr'}`" @click="toSelect(item, index, '2')">
+          <img src="../../assets/paint-brush.png" v-if="item.isChecked" class="paint ">
+          {{ item.name }}
         </div>
-        <!-- <div class="tijao" @click="answer">{{current_yaer.id === 3?'恭喜，快来开席吧~':'答错了，再来一次吧~'}}</div> -->
+        <div class="btn">
+          <div class="tijao" @click="selectFood">恭喜，快来开席吧~</div>
+        </div>
       </div>
     </div>
-    <div v-if="shopPageIndex === 3" class="loader2 wrap">3</div>
+    <div v-if="shopPageIndex === 3" class="loader2 wrap">
+      <div class="load3-jz"></div>
+      <div class="main main-load2">
+        <div class="select select2" v-for="(item, index)  in appliancesList" :key="index"
+          :class="`${selectIndex === item.id ? 'xz' : 'mr'}`" @click="toSelect(item, index)">
+          <img src="../../assets/paint-brush.png" v-if="foodList.includes(item.id)" class="paint">
+          {{ item.name }}
+        </div>
+        <div class="btn">
+          <div class="tijao" @click="selectFood">恭喜，快来开席吧~</div>
+        </div>
+      </div>
+    </div>
     <div v-if="shopPageIndex === 4" class="loader3 wrap">4</div>
     <div v-if="shopPageIndex === 5" class="loader4 wrap">4</div>
     <div v-if="shopPageIndex === 6" class="loader5 wrap">4</div>
@@ -41,27 +58,56 @@ export default {
       shopPageIndex: 1,
       selectIndex: 0,
       current_yaer: {},
+      foodList: [],
       tabSelectYear: [
         { id: 1, name: 'A.秦朝' }, { id: 2, name: 'B.唐朝' }, { id: 3, name: 'C.辛亥革命时期' }
       ],
       tabSelectFood: [
-        { id: 1, name: '1.米饭' }, { id: 2, name: '2.熟肉' }, { id: 3, name: '3.小碟酱料' }, { id: 4, name: '4.青菜' }, { id: 5, name: '5.点心' },
-        { id: 6, name: '6.鱼' }, { id: 7, name: '7.汤' }, { id: 8, name: '8.蜜饯' }, { id: 9, name: '9.宜宾燃面' }
-      ]
+        { id: 1, name: '1.米饭', isChecked: false }, { id: 2, name: '2.熟肉', isChecked: false }, { id: 3, name: '3.小碟酱料', isChecked: false }, { id: 4, name: '4.青菜', isChecked: false }, { id: 5, name: '5.点心', isChecked: false },
+        { id: 6, name: '6.鱼', isChecked: false }, { id: 7, name: '7.汤', isChecked: false }, { id: 8, name: '8.蜜饯', isChecked: false }, { id: 9, name: '9.宜宾燃面', isChecked: false }
+      ],
+      appliancesList: [{ id: 1, name: '1. 觥' }, { id: 2, name: '2. 觚' }, { id: 3, name: '3. 尊' }, { id: 4, name: '4.爵' }]
     };
   },
   computed: {
 
   },
   methods: {
-    toSelect(item) {
+    toSelect(item, index, val) {
       this.current_yaer = item;
       this.selectIndex = item.id;
+      switch (val) {
+        case '2':
+          this.foodList.push(item);
+          this.foodList = [...new Set(this.foodList)];
+          if (!this.tabSelectFood[index].isChecked) {
+            this.tabSelectFood.forEach((itemx) => {
+              if (item.id === itemx.id) itemx.isChecked = true;
+            });
+          } else {
+            this.tabSelectFood[index].isChecked = false;
+            this.$set(this.tabSelectFood, this.tabSelectFood[index].isChecked, false);
+            this.foodList.forEach((itemL, indexL) => {
+              if (item.id === itemL.id) {
+                this.foodList.splice(indexL, 1);
+              }
+            });
+          }
+          break;
+        default:
+          break;
+      }
     },
     answer() {
       if (this.current_yaer.id !== 3) return;
       this.shopPageIndex = 2;
-    }
+    },
+    selectFood() {
+      this.shopPageIndex = 3;
+    },
+    selectAppliances() {
+      return false;
+    },
   },
   created() {
     // this.getDot();
@@ -77,9 +123,9 @@ export default {
   // padding-top: 44px;
 
   .wrap {
-     position: relative;
+    position: relative;
     background: #ccc;
-     width: 100%;
+    width: 100%;
     height: 100vh;
     padding: 31px 15px 40px 15px;
     box-sizing: border-box;
@@ -92,21 +138,36 @@ export default {
     background: url("../../assets/load1-bg.png");
     background-size: 100% 100%;
   }
-  .loader1{
+
+  .loader1 {
     background: url("../../assets/load2-bg.png");
     background-size: 100% 100%;
   }
+
+  .loader2 {
+    background: url("../../assets/load3-bg.png");
+    background-size: 100% 100%;
+  }
+
   .jz {
     width: 100%;
     height: 117px;
-    background:url('../../assets/juanzhou-copy.png');
-    background-size:100% 100%;
+    background: url('../../assets/juanzhou-copy.png');
+    background-size: 100% 100%;
   }
-  .load2-jz{
+
+  .load2-jz {
     width: 100%;
     height: 117px;
-    background:url('../../assets/juanzhou-copy2.png');
-    background-size:100% 100%;
+    background: url('../../assets/juanzhou-copy2.png');
+    background-size: 100% 100%;
+  }
+
+  .load3-jz {
+    width: 100%;
+    height: 117px;
+    background: url('../../assets/juanzhou-copy3.png');
+    background-size: 100% 100%;
   }
 
   .main {
@@ -114,7 +175,8 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position:relative;
+    position: relative;
+
     .select {
       width: 100%;
       height: 39px;
@@ -136,19 +198,27 @@ export default {
       background: url("../../assets/select-copy.png");
       background-size: 100% 100%;
     }
-    .flagon{
-      width:54px;
-      height:38px;
-      position:absolute;
-      right:16%;
-      margin-bottom:26px;
+
+    .flagon {
+      width: 54px;
+      height: 38px;
+      position: absolute;
+      right: 16%;
+      margin-bottom: 26px;
     }
-    .paint{
-      width:44px;
-      height:38px;
-      position:absolute;
-      right:-14px;
-      margin-bottom:18px
+
+    .paint {
+      width: 44px;
+      height: 38px;
+      position: absolute;
+      right: -14px;
+      margin-bottom: 18px
+    }
+
+    .btn {
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
 
     .tijao {
@@ -165,23 +235,26 @@ export default {
       justify-content: center;
     }
   }
-  .main-load{
-    padding:0 35px 0 38px;
-    box-sizing:border-box;
+
+  .main-load {
+    padding: 0 35px 0 38px;
+    box-sizing: border-box;
   }
-  .main-load2{
-     display:flex;
-     flex-direction:row;
-     flex-wrap:wrap;
-     justify-content:space-between;
-     padding:0 9px 0 14px;
-     box-sizing:border-box;
-     .select2{
-        width:141px;
-        height:39px;
-        padding-left: 28px;
-        position:relative
-     }
+
+  .main-load2 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 9px 0 14px;
+    box-sizing: border-box;
+
+    .select2 {
+      width: 141px;
+      height: 39px;
+      padding-left: 28px;
+      position: relative
+    }
   }
 }
 </style>
