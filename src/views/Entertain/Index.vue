@@ -1,25 +1,40 @@
 <template>
   <div class="page user">
-    <div v-if="shopPageIndex === 1" class="pageloading wrap">
-      <img class="pageloading-pemo" src="../../assets/pemo.png" />
-      <div class="pageloading-loading">
-        <div
-          class="pageloading-loading_active"
-          :style="{ width: process + '%' }"
-        ></div>
-        <div class="pageloading-loading_bg"></div>
-        <div class="pageloading-loading_border"></div>
+    <Transition mode="out-in" name="fade">
+      <div v-show="shopPageIndex1" class="pageloading wrap">
+        <img class="pageloading-pemo" src="../../assets/pemo.png" />
+        <div class="pageloading-loading">
+          <div class="pageloading-loading_active" :style="{ width: process + '%' }"></div>
+          <div class="pageloading-loading_bg"></div>
+          <div class="pageloading-loading_border"></div>
+        </div>
+        <div class="pageloading-count">{{ this.handleProcess }}%</div>
+        <div class="mp3">
+          <audio controls ref="audio" src="../../assets/bgm.mp3"></audio>
+        </div>
+        <!-- <img class="pageloading-loading" src="../../assets/pemo.png" /> -->
       </div>
-      <div class="pageloading-count">{{ this.handleProcess }}%</div>
+    </Transition>
+    <Transition appear mode="out-in">
+      <div v-show="shopPageIndex2" class="page2 wrap">
+        <!-- <transition appear>
+          <p v-if="show">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit .
+            Mauris facilisis enim libero, at
+            lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus.
+          </p>
+        </transition> -->
+        <div class="page2-t"></div>
+        <div class="page2-m"></div>
+        <div class="page2-w"></div>
 
-      <!-- <img class="pageloading-loading" src="../../assets/pemo.png" /> -->
-    </div>
-    <div v-if="shopPageIndex === 2" class="page2 wrap">
-      <!-- <img class="page2-t" src="../../assets/paper.png" /> -->
-      <!-- <img class="page2-m" src="../../assets/text2.png" /> -->
-      <img class="page2-b" src="../../assets/button2.png" @click="goAnswer" />
-    </div>
-    <answer-wrap v-else></answer-wrap>
+        <div class="page2-b" @click="goAnswer"></div>
+      </div>
+    </Transition>
+    <Transition appear mode="out-in">
+      <answer-wrap v-show="shopPageIndex3"></answer-wrap>
+    </Transition>
+    <!-- <button @click="show = !show">Toggle</button> -->
     <!-- <div class="answer1 wrap">
       答题
     </div>
@@ -40,9 +55,13 @@ export default {
   components: { answerWrap },
   data() {
     return {
-      shopPageIndex: 1,
-      process: 60,
+      shopPageIndex1: true,
+      shopPageIndex2: false,
+      shopPageIndex3: false,
+      process: 51,
       timer: null,
+      show: false,
+      playPath: "https://h6.qiaomukeji.com/202205/Wuliangye/v7.2/resource/assets/bgm.mp3"
     };
   },
 
@@ -51,18 +70,55 @@ export default {
       this.process += 1;
       this.timer = setInterval(() => {
         this.process += 1;
-      }, 10);
+      }, 1000);
     },
     changeIndex() {
-      this.shopPageIndex = 2;
+      this.shopPageIndex2 = true;
     },
     goAnswer() {
-      this.shopPageIndex = 3;
+      this.shopPageIndex3 = true;
+      this.shopPageIndex1 = false;
+      this.shopPageIndex2 = false;
+      // this.playMp3();
     },
+    playMp3() {
+      const audioPlay = this.$refs.audio;
+      audioPlay.src = this.playPath;
+      console.log("audioPlay", audioPlay);
+      audioPlay.play();
+      if (window.WeixinJSBridge) {
+        window.WeixinJSBridge.invoke("getNetworkType", {}, () => {
+          // this.$refs.audio.load()
+          setTimeout(() => {
+            audioPlay.play();
+            audioPlay.onended = function () {
+              audioPlay.play();
+            };
+          }, 300);
+        });
+      } else {
+        document.addEventListener(
+          "WeixinJSBridgeReady",
+          () => {
+            window.WeixinJSBridge.invoke("getNetworkType", {}, () => {
+              // this.$refs.audio.load()
+              setTimeout(() => {
+                audioPlay.play();
+              }, 300);
+            });
+          },
+          false
+        );
+      }
+    }
   },
   created() {
     this.loadingProcess();
     // this.init();
+  },
+  mounted() {
+    this.show = true;
+    this.playMp3();
   },
   computed: {
     handleProcess() {
@@ -70,18 +126,60 @@ export default {
         // console.log('this.process', this.process);
         clearInterval(this.timer);
         this.changeIndex();
+        this.$refs.audio1.play();
       }
       return this.process;
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="less" scoped>
+.v-enter,
+.v-leave-to {
+  opacity: 0;
+  // transform: translateY(80px);
+}
+
+.v-enter-to,
+.v-leave {
+  opacity: 1;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: all 1s ease;
+}
+
+/* 下面的.v-move和。v-leave-active配合使用   能够实现列表后续的元素   渐渐的票上来的效果 */
+/* 当你设置移除的时候  它会默认占据最小的高度  你设置一下li的最小高度就可以了
+        如果没有这两行，元素删除后，它会很生硬的挤上去
+         */
+.v-move {
+  transition: all 0.6s ease;
+}
+
+.v-leave-active {
+  position: absolute;
+}
+
 .user {
   // font-size: 15px;
   // padding: 0 20px;
   // padding-bottom: 59px;
   // padding-top: 44px;
+  // background: #d18106;
+
+  .mp3 {
+    background: url("../../assets/answerbg1.png");
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    // position: fixed;
+    top: 0px;
+    right: 30px;
+    // overflow: hidden;
+    z-index: 9;
+  }
 
   .wrap {
     background: #ccc;
@@ -90,10 +188,12 @@ export default {
   }
 
   .pageloading {
-    background: url("../../assets/pg1.png") no-repeat;
+    position: absolute;
+    background: url("../../assets/page2.png") no-repeat;
     width: 100%;
-    background-size: cover;
+    background-size: 100% auto;
     background-position: center center;
+    z-index: 1;
 
     &-pemo {
       width: 41px;
@@ -167,27 +267,50 @@ export default {
 
   .page2 {
     width: 100%;
-    background: url("../../assets/home-bg.png") no-repeat;
+    background: url("../../assets/page2.png") no-repeat;
     background-size: cover;
     background-position: center center;
+    z-index: 2;
 
     &-t {
+      width: 82px;
+      height: 205px;
+      position: absolute;
+      top: 29px;
+      right: 18px;
+      background-image: url("../../assets/pemo2.png");
+      background-position: top left;
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+      -webkit-animation: upAndDownPemo 3s linear 0s; /* Safari 与 Chrome */
+    }
+
+    &-w {
+      width: 246px;
+      height: 66px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      bottom: 99px;
+      background-image: url("../../assets/want.png");
+      background-position: top left;
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+    }
+    &-m {
       width: 245px;
-      height: 353px;
+      height: 356px;
       position: absolute;
       top: 139px;
       left: 0;
       right: 0;
       margin: 0 auto;
-    }
-    &-m {
-      width: 245px;
-      height: 66px;
-      position: absolute;
-      top: 511px;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
+      background-image: url("../../assets/leter.png");
+      background-position: top left;
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+      -webkit-animation: upAndDown 4s linear 0s; /* Safari 与 Chrome */
     }
     &-b {
       width: 163px;
@@ -197,12 +320,56 @@ export default {
       left: 0;
       right: 0;
       margin: 0 auto;
-      bottom: 6%;
+      top: 90%;
+      // animation: myfirst 5s;
+      -webkit-animation: myfirst2 0.8s linear 0s infinite alternate; /* Safari 与 Chrome */
+      object-fit: scale-down;
+      background-image: url("../../assets/button2.png");
+      background-position: center center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    @keyframes myfirst {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    @keyframes upAndDown {
+      0% {
+        height: 0px;
+      }
+      100% {
+        height: 356px;
+      }
+    }
+
+    @keyframes upAndDownPemo {
+      0% {
+        height: 0px;
+      }
+      100% {
+        height: 356px;
+      }
+    }
+
+    @keyframes myfirst2 {
+      0% {
+        height: 25px;
+      }
+      100% {
+        height: 38px;
+      }
     }
   }
   .answer1 {
     background: url("../../assets/answerbg1.png") no-repeat center/ cover;
     width: 100%;
+    z-index: 3;
+    position: absolute;
   }
 }
 </style>
