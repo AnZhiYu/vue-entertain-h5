@@ -9,6 +9,9 @@
           <div class="pageloading-loading_border"></div>
         </div>
         <div class="pageloading-count">{{ this.handleProcess }}%</div>
+        <div class="mp3">
+          <audio controls ref="audio" src="../../assets/bgm.mp3"></audio>
+        </div>
         <!-- <img class="pageloading-loading" src="../../assets/pemo.png" /> -->
       </div>
     </Transition>
@@ -57,7 +60,8 @@ export default {
       shopPageIndex3: false,
       process: 51,
       timer: null,
-      show: false
+      show: false,
+      playPath: "https://h6.qiaomukeji.com/202205/Wuliangye/v7.2/resource/assets/bgm.mp3"
     };
   },
 
@@ -66,7 +70,7 @@ export default {
       this.process += 1;
       this.timer = setInterval(() => {
         this.process += 1;
-      }, 10);
+      }, 1000);
     },
     changeIndex() {
       this.shopPageIndex2 = true;
@@ -75,6 +79,37 @@ export default {
       this.shopPageIndex3 = true;
       this.shopPageIndex1 = false;
       this.shopPageIndex2 = false;
+      // this.playMp3();
+    },
+    playMp3() {
+      const audioPlay = this.$refs.audio;
+      audioPlay.src = this.playPath;
+      console.log("audioPlay", audioPlay);
+      audioPlay.play();
+      if (window.WeixinJSBridge) {
+        window.WeixinJSBridge.invoke("getNetworkType", {}, () => {
+          // this.$refs.audio.load()
+          setTimeout(() => {
+            audioPlay.play();
+            audioPlay.onended = function () {
+              audioPlay.play();
+            };
+          }, 300);
+        });
+      } else {
+        document.addEventListener(
+          "WeixinJSBridgeReady",
+          () => {
+            window.WeixinJSBridge.invoke("getNetworkType", {}, () => {
+              // this.$refs.audio.load()
+              setTimeout(() => {
+                audioPlay.play();
+              }, 300);
+            });
+          },
+          false
+        );
+      }
     }
   },
   created() {
@@ -83,6 +118,7 @@ export default {
   },
   mounted() {
     this.show = true;
+    this.playMp3();
   },
   computed: {
     handleProcess() {
@@ -90,6 +126,7 @@ export default {
         // console.log('this.process', this.process);
         clearInterval(this.timer);
         this.changeIndex();
+        this.$refs.audio1.play();
       }
       return this.process;
     }
@@ -131,6 +168,18 @@ export default {
   // padding-bottom: 59px;
   // padding-top: 44px;
   // background: #d18106;
+
+  .mp3 {
+    background: url("../../assets/answerbg1.png");
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    // position: fixed;
+    top: 0px;
+    right: 30px;
+    // overflow: hidden;
+    z-index: 9;
+  }
 
   .wrap {
     background: #ccc;
