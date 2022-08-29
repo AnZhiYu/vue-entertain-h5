@@ -120,7 +120,7 @@ export function formatPhone(phone) {
  * @param {String} title 标题
  */
 export function setTitle(title) {
-  document.title = title || '微客宝';
+  document.title = title || '宴请';
 }
 
 /**

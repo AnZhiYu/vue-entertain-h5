@@ -67,7 +67,7 @@ module.exports = {
     config.plugins.delete("prefetch");
     config.plugins.delete("preload");
     config.plugin("html").tap(args => {
-      args[0].title = "微客宝";
+      args[0].title = "客宴";
       return args;
     });
     // config.resolve.alias

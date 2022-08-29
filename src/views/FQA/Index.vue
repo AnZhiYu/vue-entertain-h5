@@ -2,7 +2,7 @@
   <div class="page fqa">
     <!-- <common-title title="FQA" /> -->
     <div class="fqa-title">
-      微客宝核心规则
+      客宴核心规则
     </div>
     <text-item order="1">
       10个单元，分别是：<br />
@@ -63,15 +63,15 @@
     </text-item>
 
     <text-item order="3">
-      微客宝系统会实时提醒你的下家的动态，按照“逢高提醒”机制，如你的位置是800，下家开通了1600，6400的位置，则系统会提醒下家的ID，已开通了6400的位置。
+      客宴系统会实时提醒你的下家的动态，按照“逢高提醒”机制，如你的位置是800，下家开通了1600，6400的位置，则系统会提醒下家的ID，已开通了6400的位置。
     </text-item>
 
     <div class="fqa-title" style="width: 170px">
-      微客宝令牌WKB
+      客宴令牌WKB
     </div>
 
     <text-item order="1">
-      总计发行500万个令牌，每个令牌对应微客宝特殊权益，特殊权益另行说明：
+      总计发行500万个令牌，每个令牌对应客宴特殊权益，特殊权益另行说明：
       <p class="list-dot">第一年，激活100万个令牌</p>
       <p class="list-dot">第二年，激活150万个令牌</p>
       <p class="list-dot">第三年，激活250万个令牌</p>

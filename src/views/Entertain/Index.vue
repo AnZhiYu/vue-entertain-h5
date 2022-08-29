@@ -3,21 +3,21 @@
     <div v-if="shopPageIndex === 1" class="pageloading wrap">
       <img class="pageloading-pemo" src="../../assets/pemo.png" />
       <div class="pageloading-loading">
-        <div class="pageloading-loading_active" :style="{ width: process + '%' }"></div>
+        <div
+          class="pageloading-loading_active"
+          :style="{ width: process + '%' }"
+        ></div>
         <div class="pageloading-loading_bg"></div>
         <div class="pageloading-loading_border"></div>
       </div>
-      <div class="pageloading-count">
-        {{ this.handleProcess }}%
-      </div>
+      <div class="pageloading-count">{{ this.handleProcess }}%</div>
 
       <!-- <img class="pageloading-loading" src="../../assets/pemo.png" /> -->
     </div>
-    <div v-if="shopPageIndex === 2"  class="page2 wrap">
+    <div v-if="shopPageIndex === 2" class="page2 wrap">
       <!-- <img class="page2-t" src="../../assets/paper.png" /> -->
       <!-- <img class="page2-m" src="../../assets/text2.png" /> -->
-      <img class="page2-b" src="../../assets/button2.png"  @click="goAnswer"/>
-
+      <img class="page2-b" src="../../assets/button2.png" @click="goAnswer" />
     </div>
     <answer-wrap v-else></answer-wrap>
     <!-- <div class="answer1 wrap">
@@ -32,7 +32,7 @@
 <script>
 // queryCoinExchange,
 // queryCoinExchangeList,
-import answerWrap from '../Entertain2/Index.vue';
+import answerWrap from "../Entertain2/Index.vue";
 
 export default {
   name: "user",
@@ -42,7 +42,7 @@ export default {
     return {
       shopPageIndex: 1,
       process: 60,
-      timer: null
+      timer: null,
     };
   },
 
@@ -58,7 +58,7 @@ export default {
     },
     goAnswer() {
       this.shopPageIndex = 3;
-    }
+    },
   },
   created() {
     this.loadingProcess();
@@ -72,8 +72,8 @@ export default {
         this.changeIndex();
       }
       return this.process;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -90,8 +90,11 @@ export default {
   }
 
   .pageloading {
-    background: url("../../assets/pg1.png") no-repeat center/ auto;
+    background: url("../../assets/pg1.png") no-repeat;
     width: 100%;
+    background-size: cover;
+    background-position: center center;
+
     &-pemo {
       width: 41px;
       height: 108px;
@@ -162,12 +165,13 @@ export default {
     }
   }
 
-  .page2{
-     width: 100%;
-    background: url("../../assets/home-bg.png") no-repeat center/ auto;
-    background-size:100% 100%;
+  .page2 {
+    width: 100%;
+    background: url("../../assets/home-bg.png") no-repeat;
+    background-size: cover;
+    background-position: center center;
 
-    &-t{
+    &-t {
       width: 245px;
       height: 353px;
       position: absolute;
@@ -176,7 +180,7 @@ export default {
       right: 0;
       margin: 0 auto;
     }
-    &-m{
+    &-m {
       width: 245px;
       height: 66px;
       position: absolute;
@@ -185,17 +189,18 @@ export default {
       right: 0;
       margin: 0 auto;
     }
-    &-b{
+    &-b {
       width: 163px;
       height: 38px;
       position: absolute;
-      top: 583px;
+      // top: 583px;
       left: 0;
       right: 0;
       margin: 0 auto;
+      bottom: 6%;
     }
   }
-  .answer1{
+  .answer1 {
     background: url("../../assets/answerbg1.png") no-repeat center/ cover;
     width: 100%;
   }
