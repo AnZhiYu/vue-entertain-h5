@@ -14,27 +14,30 @@
       <!-- <img class="pageloading-loading" src="../../assets/pemo.png" /> -->
     </div>
     <div v-if="shopPageIndex === 2"  class="page2 wrap">
-      <img class="page2-t" src="../../assets/paper.png" />
-      <img class="page2-m" src="../../assets/text2.png" />
+      <!-- <img class="page2-t" src="../../assets/paper.png" /> -->
+      <!-- <img class="page2-m" src="../../assets/text2.png" /> -->
       <img class="page2-b" src="../../assets/button2.png"  @click="goAnswer"/>
 
     </div>
-    <div class="answer1 wrap">
+    <answer-wrap v-else></answer-wrap>
+    <!-- <div class="answer1 wrap">
       答题
     </div>
     <div class="loader3 wrap">4</div>
     <div class="loader4 wrap">4</div>
-    <div class="loader5 wrap">4</div>
+    <div class="loader5 wrap">4</div> -->
   </div>
 </template>
 
 <script>
 // queryCoinExchange,
 // queryCoinExchangeList,
+import answerWrap from '../Entertain2/Index.vue';
 
 export default {
   name: "user",
-  components: {},
+  // eslint-disable-next-line vue/no-unused-components
+  components: { answerWrap },
   data() {
     return {
       shopPageIndex: 1,
@@ -160,8 +163,9 @@ export default {
   }
 
   .page2{
-    background: url("../../assets/pg1.png") no-repeat center/ auto;
-    width: 100%;
+     width: 100%;
+    background: url("../../assets/home-bg.png") no-repeat center/ auto;
+    background-size:100% 100%;
 
     &-t{
       width: 245px;
