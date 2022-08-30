@@ -114,14 +114,14 @@
             class="select select3 padding"
             v-for="(item, index) in wineList"
             :key="index"
-            :class="`${selectIndex === item.id ? 'xz4-short' : 'mr4-short'}`"
-            @click="toSelect(item, index)"
+            :class="`${item.isChecked ? 'xz4-short' : 'mr4-short'}`"
+            @click="toSelect(item, index, '4')"
           >
-            <img src="../../assets/paint-brush.png" v-if="item.id === selectIndex" class="paint" />
+            <img src="../../assets/paint-brush.png" v-if="item.isChecked" class="paint" />
             {{ item.name }}
           </div>
           <div class="btn">
-            <div v-if="!selectIndex" class="tijao">
+            <div v-if="!wineSelectList.length" class="tijao">
               请选择喜欢的美酒
               </div>
               <div v-else class="tijao" @click="selectWine">
@@ -204,7 +204,9 @@
       <div v-if="shopPageIndex === 8" class="loader8 wrap">
         <div class="loader8-big">
           <div class="loader8-big-top"></div>
-          <div class="loader8-big-resoult">
+          <div
+            :class="`loader8-big-resoult resoult${selectIndex}`"
+          >
             <div class="loader8-big-resoult_name">{{name}}</div>
           </div>
           <div class="loader8-big-bottom"></div>
@@ -229,6 +231,7 @@ export default {
       selectIndex: 0,
       current_yaer: {},
       foodList: [],
+      wineSelectList: [],
       tabSelectYear: [
         { id: 1, name: "A. 秦朝" },
         { id: 2, name: "B. 唐朝" },
@@ -252,11 +255,11 @@ export default {
         { id: 4, name: "4. 爵" }
       ],
       wineList: [
-        { id: 1, name: "1. 五粮液元旦纪念酒" },
-        { id: 2, name: "2. 第八代五粮液" },
-        { id: 3, name: "3. 九龙坛·蓝坛" },
-        { id: 4, name: "4. 经典五粮液" },
-        { id: 5, name: "5. 39℃五粮液" }
+        { id: 1, name: "1. 五粮液元旦纪念酒", isChecked: false },
+        { id: 2, name: "2. 第八代五粮液", isChecked: false },
+        { id: 3, name: "3. 九龙坛·蓝坛", isChecked: false },
+        { id: 4, name: "4. 经典五粮液", isChecked: false },
+        { id: 5, name: "5. 39℃五粮液", isChecked: false }
       ],
       alcoholList: [
         { id: 1, name: "A. 大米、小麦、糯米、玉米、高粱" },
@@ -304,6 +307,24 @@ export default {
             this.foodList.forEach((itemL, indexL) => {
               if (item.id === itemL.id) {
                 this.foodList.splice(indexL, 1);
+              }
+            });
+          }
+          break;
+        case "4":
+          this.wineSelectList.push(item);
+          this.wineSelectList = [...new Set(this.wineSelectList)];
+          if (!this.wineList[index].isChecked) {
+            this.wineList.forEach(itemed => {
+              // eslint-disable-next-line no-param-reassign
+              if (item.id === itemed.id) itemed.isChecked = true;
+            });
+          } else {
+            this.wineList[index].isChecked = false;
+            this.$set(this.wineList, this.wineList[index].isChecked, false);
+            this.wineSelectList.forEach((itemL, indexL) => {
+              if (item.id === itemL.id) {
+                this.wineSelectList.splice(indexL, 1);
               }
             });
           }
@@ -398,7 +419,7 @@ export default {
       width: 291px;
       height: 545px;
       position: absolute;
-      top: 12%;
+      top: 10%;
       left: 0;
       right: 0;
       // bottom: 0;
@@ -418,10 +439,33 @@ export default {
         background: url("../../assets/page8_up.png") no-repeat center/ cover;
       }
 
+      .resoult1{
+        background: url("../../assets/page8-result1.png") no-repeat center/ cover;
+      }
+
+      .resoult2{
+        background: url("../../assets/page8-result2.png") no-repeat center/ cover;
+      }
+
+      .resoult3{
+        background: url("../../assets/page8-result3.png") no-repeat center/ cover;
+      }
+
+      .resoult4{
+        background: url("../../assets/page8-result4.png") no-repeat center/ cover;
+      }
+
+      .resoult5{
+        background: url("../../assets/page8-result5.png") no-repeat center/ cover;
+      }
+
+      .resoult6{
+        background: url("../../assets/page8-result6.png") no-repeat center/ cover;
+      }
       &-resoult{
         width: 245px;
         height: 474px;
-        background: url("../../assets/page8-result1.png") no-repeat center/ cover;
+        // background: url("../../assets/page8-result1.png") no-repeat center/ cover;
         margin: 0 auto;
         margin-top: 36px;
         position: relative;
@@ -502,7 +546,7 @@ export default {
     background: #ccc;
     width: 100%;
     height: 100vh;
-    padding: 31px 15px 40px 15px;
+    padding: 31px 15px 80px 15px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;

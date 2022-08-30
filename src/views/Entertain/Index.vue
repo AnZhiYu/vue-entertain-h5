@@ -103,6 +103,11 @@ export default {
         "/img/page8_up.png",
         "/img/page8-bg.png",
         "/img/page8-result1.png",
+        "/img/page8-result2.png",
+        "/img/page8-result3.png",
+        "/img/page8-result4.png",
+        "/img/page8-result5.png",
+        "/img/page8-result6.png",
       ]
     };
   },
@@ -360,7 +365,7 @@ export default {
       left: 0;
       right: 0;
       margin: 0 auto;
-      bottom: 99px;
+      bottom: 15%;
       background-image: url("../../assets/page1_want.png");
       background-position: top left;
       background-size: 100% auto;
@@ -391,7 +396,7 @@ export default {
       left: 0;
       right: 0;
       margin: 0 auto;
-      top: 90%;
+      bottom: 8%;
       // animation: myfirst 5s;
       -webkit-animation: myfirst2 0.8s linear 0s infinite alternate;
       /* Safari 与 Chrome */
