@@ -344,6 +344,8 @@ export default {
       background-size: 100% auto;
       background-repeat: no-repeat;
       -webkit-animation: upAndDownPemo 3s linear 0s;
+      animation: upAndDownPemo 3s linear 0s;
+      z-index: 2;
       /* Safari 与 Chrome */
     }
 
@@ -362,10 +364,10 @@ export default {
     }
 
     &-m {
-      width: 245px;
-      height: 356px;
+      width: 205px;
+      height: 300px;
       position: absolute;
-      top: 139px;
+      top: 150px;
       left: 0;
       right: 0;
       margin: 0 auto;
