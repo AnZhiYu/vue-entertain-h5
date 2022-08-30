@@ -67,7 +67,7 @@ module.exports = {
     config.plugins.delete("prefetch");
     config.plugins.delete("preload");
     config.plugin("html").tap(args => {
-      args[0].title = "客宴";
+      args[0].title = "共饮杯中酒, 同说此年丰!";
       return args;
     });
 

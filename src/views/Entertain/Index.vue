@@ -29,13 +29,6 @@
     </Transition>
     <Transition name="page2">
       <div v-show="shopPageIndex2" class="page2 wrap">
-        <!-- <transition appear>
-          <p v-if="show">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit .
-            Mauris facilisis enim libero, at
-            lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus.
-          </p>
-        </transition> -->
         <div class="page2-t"></div>
         <div class="page2-m"></div>
         <div class="page2-w"></div>
@@ -46,24 +39,14 @@
     <Transition mode="out-in">
       <answer-wrap v-show="shopPageIndex3" ref="answer"></answer-wrap>
     </Transition>
-    <!-- <button @click="show = !show">Toggle</button> -->
-    <!-- <div class="answer1 wrap">
-      答题
-    </div>
-    <div class="loader3 wrap">4</div>
-    <div class="loader4 wrap">4</div>
-    <div class="loader5 wrap">4</div> -->
   </div>
 </template>
 
 <script>
-// queryCoinExchange,
-// queryCoinExchangeList,
 import answerWrap from "../Entertain2/Index.vue";
 
 export default {
   name: "user",
-  // eslint-disable-next-line vue/no-unused-components
   components: { answerWrap },
   data() {
     return {
@@ -110,6 +93,12 @@ export default {
         "/img/load6-bg.png",
         "/img/page1.png",
         "/img/pemo2.png",
+        "/img/book1.png",
+        "/img/book2.png",
+        "/img/book3.png",
+        "/img/book4.png",
+        "/img/book5.png",
+        "/img/book6.png",
       ]
     };
   },
@@ -119,12 +108,6 @@ export default {
       console.log(this.refs.audio, "audio");
       if (this.$refs.audio) this.$refs.audio.audioHuds = false;
     },
-    // loadingProcess() {
-    //   this.process += 1;
-    //   this.timer = setInterval(() => {
-    //     this.process += 1;
-    //   }, 300);
-    // },
     changeIndex() {
       if (this.shopPageIndex1) {
         this.percent = 100;
@@ -171,7 +154,7 @@ export default {
         };
 
         image.onerror = (err) => {
-          console.log('2222', img, err)
+          console.log('error', img, err)
         }
       }
     }
@@ -234,8 +217,6 @@ export default {
 .page2-enter {
   opacity: 0;
 }
-.page2-leave-to {
-}
 
 .page2-enter-active {
   transition: opacity 1s ease;
@@ -253,11 +234,6 @@ export default {
 }
 
 .user {
-  // font-size: 15px;
-  // padding: 0 20px;
-  // padding-bottom: 59px;
-  // padding-top: 44px;
-  // background: #d18106;
 
   .mp3 {
     width: 30px;
@@ -277,8 +253,6 @@ export default {
     position: absolute;
     background: url("../../assets/page1.png") no-repeat center/ cover;
     width: 100%;
-    // background-size: 100% 100%;
-    // background-position: center center;
     z-index: 1;
 
     &-pemo {

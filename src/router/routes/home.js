@@ -4,7 +4,7 @@ export default {
   path: '/',
   name: 'home',
   meta: {
-    title: '首页',
+    title: '共饮杯中酒, 同说此年丰!',
   },
   component: RouteView,
 
@@ -13,19 +13,10 @@ export default {
       path: '/',
       name: 'Entertain',
       meta: {
-        title: '邀请',
+        title: '',
         type: 'Entertain'
       },
       component: () => import(/* webpackChunkName: "entertain" */ '@/views/Entertain/Index.vue'),
-    },
-    {
-      path: '/home1',
-      name: 'entertain2',
-      meta: {
-        title: '邀请2',
-        type: 'entertain2'
-      },
-      component: () => import(/* webpackChunkName: "entertain" */ '@/views/Entertain2/Index.vue'),
     },
   ],
 };

@@ -1,7 +1,7 @@
 <template>
   <div class="page register">
     <div class="register-box">
-      <div class="register-box-title">客宴</div>
+      <div class="register-box-title">共饮杯中酒 同说此年丰</div>
       <van-form @submit="onSubmit">
         <van-field
           class="id-code"
