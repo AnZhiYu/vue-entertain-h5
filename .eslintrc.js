@@ -25,6 +25,8 @@ module.exports = {
     'semi': 0,
     'operator-linebreak': 'error',
     "object-curly-newline": 0,
+    "object-curly-newline": 0,
+    "max-len": 0,
   },
   parserOptions: {
     parser: 'babel-eslint',
