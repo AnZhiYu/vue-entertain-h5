@@ -379,7 +379,7 @@ export default {
       background-position: top left;
       background-size: 100% auto;
       background-repeat: no-repeat;
-      -webkit-animation: upAndDown 4s linear 0s;
+      -webkit-animation: upAndDown 6s linear 0s;
       /* Safari 与 Chrome */
     }
 
@@ -414,6 +414,10 @@ export default {
 
     @keyframes upAndDown {
       0% {
+        height: 0px;
+      }
+
+      50% {
         height: 0px;
       }
 
