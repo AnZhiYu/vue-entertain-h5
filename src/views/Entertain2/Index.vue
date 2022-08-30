@@ -3,86 +3,138 @@
 <!-- eslint-disable max-len -->
 <template>
   <div class="page user">
-    <div v-if="shopPageIndex === 1" class="loader wrap">
-      <div class="book">
-        <div class="book-box" :style="{ width: handleProcess + '%' }">
-          <div class="book-box_l"></div>
-          <div class="book-box_c"></div>
-          <div class="book-box_r"></div>
+    <Transition mode="out-in">
+      <div v-if="shopPageIndex === 1" class="loader wrap">
+        <div class="book">
+          <div class="book-box" :style="{ width: handleProcess + '%' }">
+            <div class="book-box_l"></div>
+            <div class="book-box_c"></div>
+            <div class="book-box_r"></div>
+          </div>
         </div>
-      </div>
-      <!-- <div class="jz"></div> -->
+        <!-- <div class="jz"></div> -->
 
-      <div class="main main-load">
-        <div
-          class="select"
-          v-for="(item, index) in tabSelectYear"
-          :key="index"
-          :class="`${selectIndex === item.id ? 'xz' : 'mr'}`"
-          @click="toSelect(item, index)"
-        >
-          <img src="../../assets/flagon.png" v-if="item.id === selectIndex" class="flagon" />
-          {{ item.name }}
-        </div>
-        <div class="tijao" @click="answer">
-          {{ current_yaer.id === 3 ? "恭喜，快来开席吧~" : "答错了，再来一次吧~" }}
-        </div>
-      </div>
-    </div>
-    <div v-if="shopPageIndex === 2" class="loader1 wrap">
-      <!-- <div class="load2-jz"></div> -->
-      <div class="book">
-        <div class="book-box" :style="{ width: handleProcess + '%' }">
-          <div class="book-box_l"></div>
-          <div class="book-box_c"></div>
-          <div class="book-box_r"></div>
-        </div>
-      </div>
-      <div class="main main-load2">
-        <div class="select select2" v-for="(item, index)  in tabSelectFood" :key="index"
-          :class="`${item.isChecked ? 'xz' : 'mr'}`" @click="toSelect(item, index, '2')">
-          <img src="../../assets/paint-brush.png" v-if="item.isChecked" class="paint">
-          {{ item.name }}
-        </div>
-        <div class="btn">
-          <div class="tijao" @click="selectFood">{{!foodList.length? '请选择喜欢的美食':'下一题'}}</div>
+        <div class="main main-load">
+          <div
+            class="select"
+            v-for="(item, index) in tabSelectYear"
+            :key="index"
+            :class="`${selectIndex === item.id ? 'xz' : 'mr'}`"
+            @click="toSelect(item, index)"
+          >
+            <img
+              src="../../assets/flagon.png"
+              v-if="item.id === selectIndex"
+              class="flagon"
+            />
+            {{ item.name }}
+          </div>
+          <div class="tijao" @click="answer">
+            {{
+              current_yaer.id === 3
+                ? "恭喜，快来开席吧~"
+                : "答错了，再来一次吧~"
+            }}
+          </div>
         </div>
       </div>
-    </div>
-    <div v-if="shopPageIndex === 3" class="loader2 wrap">
-      <!-- <div class="load3-jz"></div> -->
-      <div class="book">
-        <div class="book-box" :style="{ width: handleProcess + '%' }">
-          <div class="book-box_l"></div>
-          <div class="book-box_c"></div>
-          <div class="book-box_r"></div>
+    </Transition>
+    <Transition mode="out-in">
+      <div v-if="shopPageIndex === 2" class="loader1 wrap">
+        <!-- <div class="load2-jz"></div> -->
+        <div class="book">
+          <div class="book-box" :style="{ width: handleProcess + '%' }">
+            <div class="book-box_l"></div>
+            <div class="book-box_c"></div>
+            <div class="book-box_r"></div>
+          </div>
+        </div>
+        <div class="main main-load2">
+          <div
+            class="select select2"
+            v-for="(item, index) in tabSelectFood"
+            :key="index"
+            :class="`${item.isChecked ? 'xz' : 'mr'}`"
+            @click="toSelect(item, index, '2')"
+          >
+            <img
+              src="../../assets/paint-brush.png"
+              v-if="item.isChecked"
+              class="paint"
+            />
+            {{ item.name }}
+          </div>
+          <div class="btn">
+            <div class="tijao" @click="selectFood">
+              {{ !foodList.length ? "请选择喜欢的美食" : "下一题" }}
+            </div>
+          </div>
         </div>
       </div>
-      <div class="main main-load2">
-        <div class="select select2" v-for="(item, index)  in appliancesList" :key="index"
-          :class="`${selectIndex === item.id ? 'xz' : 'mr'}`" @click="toSelect(item, index)">
-          <img src="../../assets/paint-brush.png" v-if="item.id === selectIndex" class="paint">
-          {{ item.name }}
+    </Transition>
+    <Transition mode="out-in">
+      <div v-if="shopPageIndex === 3" class="loader2 wrap">
+        <!-- <div class="load3-jz"></div> -->
+        <div class="book">
+          <div class="book-box" :style="{ width: handleProcess + '%' }">
+            <div class="book-box_l"></div>
+            <div class="book-box_c"></div>
+            <div class="book-box_r"></div>
+          </div>
         </div>
-        <div class="btn">
-          <div class="tijao" @click="selectAppliances">{{!selectIndex ? '请选择喜欢的饮具':'下一题'}}</div>
+        <div class="main main-load2">
+          <div
+            class="select select2"
+            v-for="(item, index) in appliancesList"
+            :key="index"
+            :class="`${selectIndex === item.id ? 'xz' : 'mr'}`"
+            @click="toSelect(item, index)"
+          >
+            <img
+              src="../../assets/paint-brush.png"
+              v-if="item.id === selectIndex"
+              class="paint"
+            />
+            {{ item.name }}
+          </div>
+          <div class="btn">
+            <div class="tijao" @click="selectAppliances">
+              {{ !selectIndex ? "请选择喜欢的饮具" : "下一题" }}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div v-if="shopPageIndex === 4" class="loader3 wrap">
-      <div class="load4-jz"></div>
-      <div class="main main-load3">
-        <div class="select select3" v-for="(item, index)  in wineList" :key="index"
-          :class="`${selectIndex === item.id ? 'xz' : 'mr'}`" @click="toSelect(item, index)">
-          <img src="../../assets/paint-brush.png" v-if="item.id === selectIndex" class="paint">
-          {{ item.name }}
-        </div>
-        <div class="btn">
-          <div class="tijao" @click="selectWine">{{!selectIndex ? '请选择喜欢的美酒':'下一题'}}</div>
+    </Transition>
+    <Transition mode="out-in">
+      <div v-if="shopPageIndex === 4" class="loader3 wrap">
+        <div class="load4-jz"></div>
+        <div class="main main-load3">
+          <div
+            class="select select3"
+            v-for="(item, index) in wineList"
+            :key="index"
+            :class="`${selectIndex === item.id ? 'xz' : 'mr'}`"
+            @click="toSelect(item, index)"
+          >
+            <img
+              src="../../assets/paint-brush.png"
+              v-if="item.id === selectIndex"
+              class="paint"
+            />
+            {{ item.name }}
+          </div>
+          <div class="btn">
+            <div class="tijao" @click="selectWine">
+              {{ !selectIndex ? "请选择喜欢的美酒" : "下一题" }}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div v-if="shopPageIndex === 5" class="loader4 wrap">4</div>
+    </Transition>
+    <Transition mode="out-in">
+      <div v-if="shopPageIndex === 5" class="loader4 wrap">4</div>
+    </Transition>
+
     <div v-if="shopPageIndex === 6" class="loader5 wrap">4</div>
   </div>
 </template>
@@ -103,7 +155,7 @@ export default {
       tabSelectYear: [
         { id: 1, name: "A.秦朝" },
         { id: 2, name: "B.唐朝" },
-        { id: 3, name: "C.辛亥革命时期" }
+        { id: 3, name: "C.辛亥革命时期" },
       ],
       tabSelectFood: [
         { id: 1, name: "1.米饭", isChecked: false },
@@ -114,10 +166,23 @@ export default {
         { id: 6, name: "6.鱼", isChecked: false },
         { id: 7, name: "7.汤", isChecked: false },
         { id: 8, name: "8.蜜饯", isChecked: false },
-        { id: 9, name: "9.宜宾燃面", isChecked: false }
+        { id: 9, name: "9.宜宾燃面", isChecked: false },
       ],
-      appliancesList: [{ id: 1, name: '1. 觥' }, { id: 2, name: '2. 觚' }, { id: 3, name: '3. 尊' }, { id: 4, name: '4.爵' }],
-      wineList: [{ id: 1, name: '1. 五粮液元旦纪念酒' }, { id: 2, name: '2. 第八代五粮液' }, { id: 3, name: '3. 九龙坛·蓝坛' }, { id: 4, name: '4. 经典五粮液' }, { id: 5, name: '5. 39℃五粮液' }],
+      appliancesList: [
+        { id: 1, name: "1. 觥" },
+        { id: 2, name: "2. 觚" },
+        { id: 3, name: "3. 尊" },
+        { id: 4, name: "4.爵" },
+      ],
+      wineList: [
+        { id: 1, name: "1. 五粮液元旦纪念酒" },
+        { id: 2, name: "2. 第八代五粮液" },
+        { id: 3, name: "3. 九龙坛·蓝坛" },
+        { id: 4, name: "4. 经典五粮液" },
+        { id: 5, name: "5. 39℃五粮液" },
+      ],
+      expand: 6,
+      timer: null,
     };
   },
   computed: {
@@ -128,7 +193,7 @@ export default {
         // this.changeIndex();
       }
       return this.expand;
-    }
+    },
   },
   methods: {
     toSelect(item, index, val) {
@@ -145,7 +210,11 @@ export default {
             });
           } else {
             this.tabSelectFood[index].isChecked = false;
-            this.$set(this.tabSelectFood, this.tabSelectFood[index].isChecked, false);
+            this.$set(
+              this.tabSelectFood,
+              this.tabSelectFood[index].isChecked,
+              false
+            );
             this.foodList.forEach((itemL, indexL) => {
               if (item.id === itemL.id) {
                 this.foodList.splice(indexL, 1);
@@ -188,13 +257,13 @@ export default {
       this.timer = setInterval(() => {
         this.expand += 0.1;
       }, 5);
-    }
+    },
   },
   created() {
     // this.getDot();
     // this.init();
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 <style lang="less" scoped>
@@ -203,6 +272,24 @@ export default {
   // padding: 0 20px;
   // padding-bottom: 59px;
   // padding-top: 44px;
+
+  .v-enter,
+  .v-leave-to {
+    opacity: 0.3;
+    // transform: translateY(80px);
+  }
+
+  .v-enter-to,
+  .v-leave {
+    opacity: 1;
+  }
+
+  .v-enter-active{
+    transition: all 0.5s ease;
+  }
+  .v-leave-active {
+    transition: all 0.2s ease;
+  }
 
   .wrap {
     position: relative;
@@ -232,7 +319,7 @@ export default {
     background: url("../../assets/load3-bg.png");
     background-size: 100% 100%;
   }
-  .loader3{
+  .loader3 {
     background: url("../../assets/load4-bg.png");
     background-size: 100% 100%;
   }
@@ -295,10 +382,10 @@ export default {
     background: url("../../assets/juanzhou-copy3.png");
     background-size: 100% 100%;
   }
-  .load4-jz{
+  .load4-jz {
     width: 100%;
     height: 117px;
-    background: url('../../assets/juanzhou-copy4.png');
+    background: url("../../assets/juanzhou-copy4.png");
     background-size: 100% 100%;
   }
   .main {
@@ -387,14 +474,14 @@ export default {
       position: relative;
     }
   }
-  .main-load3{
+  .main-load3 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
     // padding: 0 9px 0 14px;
     box-sizing: border-box;
-    .select3{
+    .select3 {
       position: relative;
       width: 160px;
       height: 36px;

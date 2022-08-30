@@ -21,8 +21,10 @@ module.exports = {
     'quotes': 0,
     'comma-dangle': 0,
     'arrow-parens': 'off',
+    'no-console': 0,
+    'semi': 0,
     'operator-linebreak': 'error',
-    "object-curly-newline": 0
+    "object-curly-newline": 0,
   },
   parserOptions: {
     parser: 'babel-eslint',

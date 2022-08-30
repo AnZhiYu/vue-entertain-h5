@@ -27,4 +27,3 @@ yarn run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
->>>>>>> 0fa3f92 (fix: 新增项目)

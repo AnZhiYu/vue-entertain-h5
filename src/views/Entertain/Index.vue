@@ -1,32 +1,40 @@
 <!-- eslint-disable max-len -->
 <template>
   <div class="page user">
-    <div class="music_icon" :class="music_off ? 'music':'music_off'" @click="play" />
-    <Transition mode="out-in" name="fade">
+    <div
+      class="music_icon"
+      :class="music_off ? 'music' : 'music_off'"
+      @click="play"
+    />
+    <Transition mode="out-in">
       <div v-show="shopPageIndex1" class="pageloading wrap">
         <img class="pageloading-pemo" src="../../assets/pemo.png" />
         <div class="pageloading-loading">
-          <div class="pageloading-loading_active" :style="{ width: process + '%' }"></div>
+          <div
+            class="pageloading-loading_active"
+            :style="{ width: percent + '%' }"
+          ></div>
           <div class="pageloading-loading_bg"></div>
           <div class="pageloading-loading_border"></div>
         </div>
-        <div class="pageloading-count">{{ this.handleProcess }}%</div>
+        <div class="pageloading-count">{{ percent }}%</div>
         <!-- <div v-show="false">
         </div> -->
         <div class="mp3" v-show="false">
-          <audio ref="audio"
-          autoplay="autoplay"
+          <audio
+            ref="audio"
+            autoplay="autoplay"
             @pause="onPause"
             @play="onPlay"
             loop="loop"
             src="../../assets/bgm.mp3"
-            controls="controls">
-          </audio>
+            controls="controls"
+          ></audio>
         </div>
         <!-- <img class="pageloading-loading" src="../../assets/pemo.png" /> -->
       </div>
     </Transition>
-    <Transition appear mode="out-in">
+    <Transition name="page2">
       <div v-show="shopPageIndex2" class="page2 wrap">
         <!-- <transition appear>
           <p v-if="show">
@@ -39,10 +47,10 @@
         <div class="page2-m"></div>
         <div class="page2-w"></div>
 
-        <div class="page2-b" @click="goAnswer" ></div>
+        <div class="page2-b" @click="goAnswer"></div>
       </div>
     </Transition>
-    <Transition appear mode="out-in">
+    <Transition mode="out-in">
       <answer-wrap v-show="shopPageIndex3" ref="answer"></answer-wrap>
     </Transition>
     <!-- <button @click="show = !show">Toggle</button> -->
@@ -72,30 +80,47 @@ export default {
       process: 51,
       timer: null,
       show: false,
-      playPath: "https://h6.qiaomukeji.com/202205/Wuliangye/v7.2/resource/assets/bgm.mp3",
+      playPath:
+        "https://h6.qiaomukeji.com/202205/Wuliangye/v7.2/resource/assets/bgm.mp3",
       music_off: true,
+      count: 0,
+      percent: "",
+      imgs: [
+        "/img/page2.png",
+        "/img/load1-bg.png",
+        "/img/load2-bg.png",
+        "/img/load3-bg.png",
+        "/img/load4-bg.png",
+        "/img/leter.png",
+        "/img/answerbg1.png",
+        "/img/book.png",
+        "/img/want.png",
+        "/img/pemo2.png",
+      ],
     };
   },
 
   methods: {
     controlMa3() {
-      console.log(this.refs.audio, 'audio');
+      console.log(this.refs.audio, "audio");
       if (this.$refs.audio) this.$refs.audio.audioHuds = false;
     },
-    loadingProcess() {
-      this.process += 1;
-      this.timer = setInterval(() => {
-        this.process += 1;
-      }, 30);
-    },
+    // loadingProcess() {
+    //   this.process += 1;
+    //   this.timer = setInterval(() => {
+    //     this.process += 1;
+    //   }, 300);
+    // },
     changeIndex() {
-      this.shopPageIndex2 = true;
+      if (this.shopPageIndex1) {
+        this.percent = 100;
+        this.shopPageIndex2 = true;
+      }
     },
     goAnswer() {
       this.shopPageIndex3 = true;
       this.shopPageIndex1 = false;
       this.shopPageIndex2 = false;
-
       // 调组件内方法 展开book
       this.$refs.answer.loadingProcess();
     },
@@ -119,24 +144,54 @@ export default {
     onPause() {
       this.audio.playing = false;
     },
+    preload() {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const img of this.imgs) {
+        const image = new Image();
+        image.src = img;
+        image.onload = () => {
+          this.count += 1;
+          // 计算图片加载的百分数，绑定到percent变量
+          const percentNum = Math.floor((this.count / this.imgs.length) * 100);
+          this.percent = percentNum;
+        };
+      }
+    },
   },
   created() {
-    this.loadingProcess();
+    // this.loadingProcess();
     // this.init();
   },
   mounted() {
     this.show = true;
-    // this.playMp3();
+    // 预加载
+    this.preload();
+
+    // 定时器防止加载不出
+    this.timer = setInterval(this.changeIndex, 7000);
   },
   computed: {
     handleProcess() {
       if (this.process === 100) {
         clearInterval(this.timer);
-        this.changeIndex();
       }
       return this.process;
-    }
-  }
+    },
+  },
+  watch: {
+    count(val) {
+      if (val === this.imgs.length) {
+        // 图片加载完成后跳转页面
+        clearInterval(this.timer);
+        this.changeIndex();
+      }
+    },
+    shopPageIndex2(val) {
+      if (val) {
+        clearInterval(this.timer);
+      }
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -156,16 +211,25 @@ export default {
   transition: all 1s ease;
 }
 
+.page2-enter {
+  opacity: 0;
+}
+.page2-leave-to {
+}
+
+.page2-enter-active {
+  transition: opacity 1s ease;
+}
+.page2-leave-active {
+  transition: opacity 0s ease;
+}
+
 /* 下面的.v-move和。v-leave-active配合使用   能够实现列表后续的元素   渐渐的票上来的效果 */
 /* 当你设置移除的时候  它会默认占据最小的高度  你设置一下li的最小高度就可以了
         如果没有这两行，元素删除后，它会很生硬的挤上去
          */
 .v-move {
   transition: all 0.6s ease;
-}
-
-.v-leave-active {
-  position: absolute;
 }
 
 .user {
@@ -211,7 +275,7 @@ export default {
       left: 0;
       right: 0;
       margin: 0 auto;
-      background: url("../../assets/cloud.png") no-repeat center/ auto;
+      background: url("../../assets/cloud.png") no-repeat center/ cover;
       width: 120px;
       height: 17px;
       text-align: center;
@@ -253,6 +317,7 @@ export default {
         // left: 0;
         // top: 0;
       }
+
       &_active {
         width: 100%;
         background: #e14d42;
@@ -284,7 +349,8 @@ export default {
       background-position: top left;
       background-size: 100% auto;
       background-repeat: no-repeat;
-      -webkit-animation: upAndDownPemo 3s linear 0s; /* Safari 与 Chrome */
+      -webkit-animation: upAndDownPemo 3s linear 0s;
+      /* Safari 与 Chrome */
     }
 
     &-w {
@@ -300,6 +366,7 @@ export default {
       background-size: 100% auto;
       background-repeat: no-repeat;
     }
+
     &-m {
       width: 245px;
       height: 356px;
@@ -312,8 +379,10 @@ export default {
       background-position: top left;
       background-size: 100% auto;
       background-repeat: no-repeat;
-      -webkit-animation: upAndDown 4s linear 0s; /* Safari 与 Chrome */
+      -webkit-animation: upAndDown 4s linear 0s;
+      /* Safari 与 Chrome */
     }
+
     &-b {
       width: 163px;
       height: 38px;
@@ -324,7 +393,8 @@ export default {
       margin: 0 auto;
       top: 90%;
       // animation: myfirst 5s;
-      -webkit-animation: myfirst2 0.8s linear 0s infinite alternate; /* Safari 与 Chrome */
+      -webkit-animation: myfirst2 0.8s linear 0s infinite alternate;
+      /* Safari 与 Chrome */
       object-fit: scale-down;
       background-image: url("../../assets/button2.png");
       background-position: center center;
@@ -336,14 +406,17 @@ export default {
       0% {
         opacity: 0;
       }
+
       100% {
         opacity: 1;
       }
     }
+
     @keyframes upAndDown {
       0% {
         height: 0px;
       }
+
       100% {
         height: 356px;
       }
@@ -353,6 +426,7 @@ export default {
       0% {
         height: 0px;
       }
+
       100% {
         height: 356px;
       }
@@ -360,13 +434,15 @@ export default {
 
     @keyframes myfirst2 {
       0% {
-        height: 25px;
+        height: 30px;
       }
+
       100% {
         height: 38px;
       }
     }
   }
+
   .answer1 {
     background: url("../../assets/answerbg1.png") no-repeat center/ cover;
     width: 100%;
@@ -374,7 +450,8 @@ export default {
     position: absolute;
   }
 }
-.music_icon{
+
+.music_icon {
   width: 24px;
   height: 24px;
   position: fixed;
@@ -382,12 +459,14 @@ export default {
   top: 8px;
   z-index: 6;
 }
-.music{
-  background-image: url('../../assets/music.png');
+
+.music {
+  background-image: url("../../assets/music.png");
   background-size: 100% 100%;
 }
-.music_off{
-  background-image: url('../../assets/music_off.png');
+
+.music_off {
+  background-image: url("../../assets/music_off.png");
   background-size: 100% 100%;
 }
 </style>
