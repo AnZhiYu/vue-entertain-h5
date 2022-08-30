@@ -1,7 +1,7 @@
 <!-- eslint-disable max-len -->
 <template>
   <div class="page user">
-    <div class="music_icon" :class="music_off ? 'music' : 'music_off'" @click="play" />
+    <div class="music_icon" :class="!music_off ? 'music' : 'music_off'" @click="play" />
     <Transition mode="out-in">
       <div v-show="shopPageIndex1" class="pageloading wrap">
         <img class="pageloading-pemo" src="../../assets/pemo.png" />
@@ -118,6 +118,7 @@ export default {
     goAnswer() {
       this.shopPageIndex3 = true;
       this.shopPageIndex2 = false;
+      this.play()
       // 调组件内方法 展开book
       this.$refs.answer.loadingProcess();
     },
