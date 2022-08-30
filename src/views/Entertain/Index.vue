@@ -28,11 +28,11 @@
         <div class="page2-m"></div>
         <div class="page2-w"></div>
 
-        <div class="page2-b" @click="goAnswer"></div>
+        <div class="page2-b" @click="goAnswer" ></div>
       </div>
     </Transition>
     <Transition appear mode="out-in">
-      <answer-wrap v-show="shopPageIndex3"></answer-wrap>
+      <answer-wrap v-show="shopPageIndex3" ref="answer"></answer-wrap>
     </Transition>
     <!-- <button @click="show = !show">Toggle</button> -->
     <!-- <div class="answer1 wrap">
@@ -70,7 +70,7 @@ export default {
       this.process += 1;
       this.timer = setInterval(() => {
         this.process += 1;
-      }, 1000);
+      }, 10);
     },
     changeIndex() {
       this.shopPageIndex2 = true;
@@ -79,7 +79,9 @@ export default {
       this.shopPageIndex3 = true;
       this.shopPageIndex1 = false;
       this.shopPageIndex2 = false;
-      // this.playMp3();
+
+      // 调组件内方法 展开book
+      this.$refs.answer.loadingProcess();
     },
     playMp3() {
       const audioPlay = this.$refs.audio;
@@ -118,7 +120,7 @@ export default {
   },
   mounted() {
     this.show = true;
-    this.playMp3();
+    // this.playMp3();
   },
   computed: {
     handleProcess() {
@@ -126,7 +128,6 @@ export default {
         // console.log('this.process', this.process);
         clearInterval(this.timer);
         this.changeIndex();
-        this.$refs.audio1.play();
       }
       return this.process;
     }

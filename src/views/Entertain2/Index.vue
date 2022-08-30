@@ -4,22 +4,49 @@
 <template>
   <div class="page user">
     <div v-if="shopPageIndex === 1" class="loader wrap">
-      <div class="jz"></div>
+      <div class="book">
+        <div class="book-box" :style="{ width: handleProcess + '%' }">
+          <div class="book-box_l"></div>
+          <div class="book-box_c"></div>
+          <div class="book-box_r"></div>
+        </div>
+      </div>
+      <!-- <div class="jz"></div> -->
+
       <div class="main main-load">
-        <div class="select" v-for="(item, index)  in tabSelectYear" :key="index"
-          :class="`${selectIndex === item.id ? 'xz' : 'mr'}`" @click="toSelect(item, index)">
-          <img src="../../assets/flagon.png" v-if="item.id === selectIndex" class="flagon">
+        <div
+          class="select"
+          v-for="(item, index) in tabSelectYear"
+          :key="index"
+          :class="`${selectIndex === item.id ? 'xz' : 'mr'}`"
+          @click="toSelect(item, index)"
+        >
+          <img src="../../assets/flagon.png" v-if="item.id === selectIndex" class="flagon" />
           {{ item.name }}
         </div>
-        <div class="tijao" @click="answer">{{ current_yaer.id === 3 ? '恭喜，快来开席吧~' : '答错了，再来一次吧~' }}</div>
+        <div class="tijao" @click="answer">
+          {{ current_yaer.id === 3 ? "恭喜，快来开席吧~" : "答错了，再来一次吧~" }}
+        </div>
       </div>
     </div>
     <div v-if="shopPageIndex === 2" class="loader1 wrap">
-      <div class="load2-jz"></div>
+      <!-- <div class="load2-jz"></div> -->
+      <div class="book">
+        <div class="book-box" :style="{ width: handleProcess + '%' }">
+          <div class="book-box_l"></div>
+          <div class="book-box_c"></div>
+          <div class="book-box_r"></div>
+        </div>
+      </div>
       <div class="main main-load2">
-        <div class="select select2" v-for="(item, index)  in tabSelectFood" :key="index"
-          :class="`${item.isChecked ? 'xz' : 'mr'}`" @click="toSelect(item, index, '2')">
-          <img src="../../assets/paint-brush.png" v-if="item.isChecked" class="paint ">
+        <div
+          class="select select2"
+          v-for="(item, index) in tabSelectFood"
+          :key="index"
+          :class="`${item.isChecked ? 'xz' : 'mr'}`"
+          @click="toSelect(item, index, '2')"
+        >
+          <img src="../../assets/paint-brush.png" v-if="item.isChecked" class="paint " />
           {{ item.name }}
         </div>
         <div class="btn">
@@ -28,11 +55,23 @@
       </div>
     </div>
     <div v-if="shopPageIndex === 3" class="loader2 wrap">
-      <div class="load3-jz"></div>
+      <!-- <div class="load3-jz"></div> -->
+      <div class="book">
+        <div class="book-box" :style="{ width: handleProcess + '%' }">
+          <div class="book-box_l"></div>
+          <div class="book-box_c"></div>
+          <div class="book-box_r"></div>
+        </div>
+      </div>
       <div class="main main-load2">
-        <div class="select select2" v-for="(item, index)  in appliancesList" :key="index"
-          :class="`${selectIndex === item.id ? 'xz' : 'mr'}`" @click="toSelect(item, index)">
-          <img src="../../assets/paint-brush.png" v-if="foodList.includes(item.id)" class="paint">
+        <div
+          class="select select2"
+          v-for="(item, index) in appliancesList"
+          :key="index"
+          :class="`${selectIndex === item.id ? 'xz' : 'mr'}`"
+          @click="toSelect(item, index)"
+        >
+          <img src="../../assets/paint-brush.png" v-if="foodList.includes(item.id)" class="paint" />
           {{ item.name }}
         </div>
         <div class="btn">
@@ -60,28 +99,52 @@ export default {
       current_yaer: {},
       foodList: [],
       tabSelectYear: [
-        { id: 1, name: 'A.秦朝' }, { id: 2, name: 'B.唐朝' }, { id: 3, name: 'C.辛亥革命时期' }
+        { id: 1, name: "A.秦朝" },
+        { id: 2, name: "B.唐朝" },
+        { id: 3, name: "C.辛亥革命时期" }
       ],
       tabSelectFood: [
-        { id: 1, name: '1.米饭', isChecked: false }, { id: 2, name: '2.熟肉', isChecked: false }, { id: 3, name: '3.小碟酱料', isChecked: false }, { id: 4, name: '4.青菜', isChecked: false }, { id: 5, name: '5.点心', isChecked: false },
-        { id: 6, name: '6.鱼', isChecked: false }, { id: 7, name: '7.汤', isChecked: false }, { id: 8, name: '8.蜜饯', isChecked: false }, { id: 9, name: '9.宜宾燃面', isChecked: false }
+        { id: 1, name: "1.米饭", isChecked: false },
+        { id: 2, name: "2.熟肉", isChecked: false },
+        { id: 3, name: "3.小碟酱料", isChecked: false },
+        { id: 4, name: "4.青菜", isChecked: false },
+        { id: 5, name: "5.点心", isChecked: false },
+        { id: 6, name: "6.鱼", isChecked: false },
+        { id: 7, name: "7.汤", isChecked: false },
+        { id: 8, name: "8.蜜饯", isChecked: false },
+        { id: 9, name: "9.宜宾燃面", isChecked: false }
       ],
-      appliancesList: [{ id: 1, name: '1. 觥' }, { id: 2, name: '2. 觚' }, { id: 3, name: '3. 尊' }, { id: 4, name: '4.爵' }]
+      appliancesList: [
+        { id: 1, name: "1. 觥" },
+        { id: 2, name: "2. 觚" },
+        { id: 3, name: "3. 尊" },
+        { id: 4, name: "4.爵" }
+      ],
+      expand: 6,
+      timer: null
     };
   },
   computed: {
-
+    handleProcess() {
+      if (this.expand > 99) {
+        // console.log('this.expand', this.expand);
+        clearInterval(this.timer);
+        // this.changeIndex();
+      }
+      return this.expand;
+    }
   },
   methods: {
     toSelect(item, index, val) {
       this.current_yaer = item;
       this.selectIndex = item.id;
       switch (val) {
-        case '2':
+        case "2":
           this.foodList.push(item);
           this.foodList = [...new Set(this.foodList)];
           if (!this.tabSelectFood[index].isChecked) {
-            this.tabSelectFood.forEach((itemx) => {
+            this.tabSelectFood.forEach(itemx => {
+              // eslint-disable-next-line no-param-reassign
               if (item.id === itemx.id) itemx.isChecked = true;
             });
           } else {
@@ -101,18 +164,35 @@ export default {
     answer() {
       if (this.current_yaer.id !== 3) return;
       this.shopPageIndex = 2;
+
+      // 开始画卷
+      this.resetBook();
     },
     selectFood() {
       this.shopPageIndex = 3;
+      // 开始画卷
+      this.resetBook();
     },
     selectAppliances() {
       return false;
     },
+    resetBook() {
+      clearInterval(this.timer);
+      this.expand = 6;
+      this.loadingProcess();
+    },
+    loadingProcess() {
+      this.expand += 1;
+      this.timer = setInterval(() => {
+        this.expand += 0.1;
+      }, 5);
+    }
   },
   created() {
     // this.getDot();
     // this.init();
-  }
+  },
+  mounted() {}
 };
 </script>
 <style lang="less" scoped>
@@ -154,21 +234,60 @@ export default {
   .jz {
     width: 100%;
     height: 117px;
-    background: url('../../assets/juanzhou-copy.png');
+    background: url("../../assets/juanzhou-copy.png");
     background-size: 100% 100%;
+  }
+
+  .book {
+    width: 323px;
+    height: 109px;
+    margin: 0 auto;
+
+    .book-box {
+      width: 100%;
+      height: 109px;
+      position: relative;
+      overflow: hidden;
+
+      &_l {
+        width: 10px;
+        height: 109px;
+        background: #a92a2a;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: url("../../assets/book-l.png") no-repeat center/ cover;
+      }
+      &_c {
+        width: 319px;
+        height: 93px;
+        background: #fff;
+        background: url("../../assets/book.png") no-repeat;
+        margin-top: 5px;
+      }
+      &_r {
+        width: 10px;
+        height: 109px;
+        background: blue;
+        position: absolute;
+        right: -1px;
+        top: 0;
+        background: url("../../assets/book-r.png") no-repeat center/ cover;
+      }
+    }
   }
 
   .load2-jz {
     width: 100%;
     height: 117px;
-    background: url('../../assets/juanzhou-copy2.png');
+    background: url("../../assets/juanzhou-copy2.png");
     background-size: 100% 100%;
   }
 
   .load3-jz {
     width: 100%;
     height: 117px;
-    background: url('../../assets/juanzhou-copy3.png');
+    background: url("../../assets/juanzhou-copy3.png");
     background-size: 100% 100%;
   }
 
@@ -214,7 +333,7 @@ export default {
       height: 38px;
       position: absolute;
       right: -14px;
-      margin-bottom: 18px
+      margin-bottom: 18px;
     }
 
     .btn {
@@ -255,7 +374,7 @@ export default {
       width: 141px;
       height: 39px;
       padding-left: 28px;
-      position: relative
+      position: relative;
     }
   }
 }
