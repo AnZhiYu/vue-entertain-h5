@@ -182,10 +182,9 @@ export default {
   },
   watch: {
     count(val) {
-      console.log(val)
       if (val === this.imgs.length) {
         // 图片加载完成后跳转页面
-        console.log('gggg')
+        console.log('完成')
         clearInterval(this.timer);
         this.changeIndex();
       }

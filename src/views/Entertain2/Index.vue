@@ -195,18 +195,18 @@
     </Transition>
     <Transition mode="out-in">
       <div v-if="shopPageIndex === 7" class="loader7 wrap">
-        <!-- <van-field
-          left-icon="iconfont"
-          v-model="name"
-          label-align="right"
-          type="text"
-          maxlength="7"
-          name="name"
-          placeholder=""
-          :rules="[{ pattern: namePattern, message: '请输入正确的账号' }]"
-        /> -->
         <input type="text" class="loader7-input" v-model="name">
-        <div class="loader7-btn"></div>
+        <div class="loader7-btn" v-if="name"  @click="getRoult"></div>
+      </div>
+    </Transition>
+
+    <Transition mode="out-in">
+      <div v-if="shopPageIndex === 8" class="loader8 wrap">
+        <div class="loader8-big">
+          <div class="loader8-big-top"></div>
+          <div class="loader8-big-resoult"></div>
+          <div class="loader8-big-bottom"></div>
+        </div>
       </div>
     </Transition>
   </div>
@@ -222,8 +222,8 @@ export default {
   },
   data() {
     return {
-      name: '',
-      shopPageIndex: 1,
+      name: '22',
+      shopPageIndex: 8,
       selectIndex: 0,
       current_yaer: {},
       foodList: [],
@@ -347,6 +347,11 @@ export default {
     drinkFreely() {
       if (!this.selectIndex) return;
       this.shopPageIndex = 7;
+      this.resetBook();
+    },
+    getRoult() {
+      this.shopPageIndex = 8;
+      this.resetBook();
     },
     resetBook() {
       clearInterval(this.timer);
@@ -369,6 +374,79 @@ export default {
 </script>
 <style lang="less" scoped>
 .user {
+
+  .loader8{
+    // background: url("../../assets/load7-bg.png") no-repeat center/ cover;
+    background-image: linear-gradient(-180deg,#f1d9ad, #e0d9ca) !important;
+
+    &-book{
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 10%;
+      margin: 0 auto;
+
+      .book-box_c {
+        // background: #ccc;
+        // background: url("../../assets/book4.png") no-repeat 6px 6px / contain;
+      }
+    }
+
+    &-big{
+      width: 291px;
+      height: 545px;
+      position: absolute;
+      top: 12%;
+      left: 0;
+      right: 0;
+      // bottom: 0;
+      margin: 0 auto;
+      background-image: url("../../assets/page8-bg.png");
+      background-position: top left;
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+      overflow: hidden;
+      animation: upAndDown 4s linear 0s;
+      &-top{
+        position: absolute;
+        top: 0px;
+        height: 14px;
+        width: 100%;
+
+        background: url("../../assets/page8_up.png") no-repeat center/ cover;
+      }
+
+      &-resoult{
+        width: 245px;
+        height: 474px;
+        background: url("../../assets/page8-result1.png") no-repeat center/ cover;
+        margin: 0 auto;
+        margin-top: 36px;
+      }
+
+      &-bottom{
+        height: 14px;
+        width: 100%;
+        position: absolute;
+        bottom: -3px;
+        background: url("../../assets/page8_down.png") no-repeat center/ cover;
+
+      }
+
+    }
+
+    @keyframes upAndDown {
+      0% {
+        height: 0px;
+      }
+
+      100% {
+        height: 545px;
+      }
+    }
+
+  }
+
   // font-size: 15px;
   // padding: 0 20px;
   // padding-bottom: 59px;
