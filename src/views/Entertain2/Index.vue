@@ -146,7 +146,7 @@
             class="select4"
             v-for="(item, index) in alcoholList"
             :key="index"
-            :class="`${selectIndex === item.id ? 'xz' : 'mr'}`"
+            :class="`${selectIndex === item.id ? 'xz5-short' : 'mr'}`"
             @click="toSelect(item, index)"
           >
             <img
@@ -156,10 +156,11 @@
             />
             {{ item.name }}
           </div>
-
-          <div v-if="current_yaer.id" class="tijao" @click="selectAlcohol">
-            {{ current_yaer.id === 3 ? "下一题" : "答错了，再来一次吧~" }}
-            </div>
+          <Transition name="answer">
+          <div  class="tijao" @click="selectAlcohol">
+            {{ current_yaer.id === 1 ? "恭喜答对,下一题" : !current_yaer.id ?"请选择正确的选项~" :"答错了，再来一次吧~" }}
+          </div>
+          </Transition>
         </div>
       </div>
     </Transition>
@@ -178,7 +179,7 @@
             class="select4"
             v-for="(item, index) in freelyList"
             :key="index"
-            :class="`${selectIndex === item.id ? 'xz' : 'mr'}`"
+            :class="`${selectIndex === item.id ? 'xz6-short' : 'mr'}`"
             @click="toSelect(item, index)"
           >
             <img
@@ -318,28 +319,34 @@ export default {
       this.resetBook();
     },
     selectFood() {
+      if (!this.selectIndex) return;
       this.shopPageIndex = 3;
       this.selectIndex = 0;
       // 开始画卷
       this.resetBook();
     },
     selectAppliances() {
+      if (!this.selectIndex) return;
       this.shopPageIndex = 4;
       this.selectIndex = 0;
       this.resetBook();
     },
     selectWine() {
+      if (!this.selectIndex) return;
       this.shopPageIndex = 5;
       this.selectIndex = 0;
+      this.current_yaer = {}
       this.resetBook();
     },
     selectAlcohol() {
+      if (this.current_yaer.id !== 1) return;
       this.shopPageIndex = 6;
       this.selectIndex = 0;
       this.resetBook();
     },
     drinkFreely() {
-      return false;
+      if (!this.selectIndex) return;
+      this.shopPageIndex = 7;
     },
     resetBook() {
       clearInterval(this.timer);
@@ -571,6 +578,14 @@ export default {
       background: url("../../assets/mr4-short.png");
       background-size: 100% 100%;
     }
+    .xz6-short{
+      background: url("../../assets/xz6-short.png");
+      background-size: 100% 100%;
+    }
+    .xz5-short{
+      background: url("../../assets/xz5-short.png");
+      background-size: 100% 100%;
+    }
     .flagon {
       width: 54px;
       height: 38px;
@@ -645,7 +660,7 @@ export default {
     box-sizing: border-box;
     .select3 {
       position: relative;
-      width: 160px;
+      width: 170px;
       height: 36px;
       padding-left: 16px;
       box-sizing: border-box;
