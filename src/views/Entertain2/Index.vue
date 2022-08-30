@@ -192,6 +192,22 @@
         </div>
       </div>
     </Transition>
+    <Transition mode="out-in">
+      <div v-if="shopPageIndex === 7" class="loader7 wrap">
+        <!-- <van-field
+          left-icon="iconfont"
+          v-model="name"
+          label-align="right"
+          type="text"
+          maxlength="7"
+          name="name"
+          placeholder=""
+          :rules="[{ pattern: namePattern, message: '请输入正确的账号' }]"
+        /> -->
+        <input type="text" class="loader7-input" v-model="name">
+        <div class="loader7-btn"></div>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -201,9 +217,11 @@
 
 export default {
   name: "answer-warp",
-  components: {},
+  components: {
+  },
   data() {
     return {
+      name: '',
       shopPageIndex: 1,
       selectIndex: 0,
       current_yaer: {},
@@ -420,11 +438,34 @@ export default {
     background: url("../../assets/load6-bg.png") no-repeat center/ cover;
     // background-size: 100% 100%;
   }
-  .jz {
-    width: 100%;
-    height: 117px;
-    background: url("../../assets/juanzhou-copy.png");
-    // background-size: 100% 100%;
+
+  .loader7{
+    background: url("../../assets/load7-bg.png") no-repeat center/ cover;
+
+    &-input{
+      background: #FEE3C5;
+      border: 1px solid #C0B2A4;
+      width: 174px;
+      height: 26px;
+      position: absolute;
+      top: 47%;
+      right: 0;
+      left: 0;
+      margin: 0 auto;
+      padding: 3px 10px;
+      font-size: 16px;
+    }
+
+    &-btn{
+      position: absolute;
+      bottom: 35%;
+      right: 0;
+      left: 0;
+      margin: 0 auto;
+      width: 115px;
+      height: 30px;
+      background: url("../../assets/page7_btn.png") no-repeat center/ cover;
+    }
   }
 
   .book {
@@ -483,37 +524,6 @@ export default {
     }
   }
 
-  .load2-jz {
-    width: 100%;
-    height: 117px;
-    background: url("../../assets/juanzhou-copy2.png");
-    background-size: 100% 100%;
-  }
-
-  .load3-jz {
-    width: 100%;
-    height: 117px;
-    background: url("../../assets/juanzhou-copy3.png");
-    background-size: 100% 100%;
-  }
-  .load4-jz {
-    width: 100%;
-    height: 117px;
-    background: url("../../assets/juanzhou-copy4.png");
-    background-size: 100% 100%;
-  }
-  .load5-jz {
-    width: 100%;
-    height: 117px;
-    background: url("../../assets/juanzhou-copy5.png");
-    background-size: 100% 100%;
-  }
-  .load6-jz {
-    width: 100%;
-    height: 117px;
-    background: url("../../assets/juanzhou-copy6.png");
-    background-size: 100% 100%;
-  }
   .main {
     width: 100%;
     display: flex;
