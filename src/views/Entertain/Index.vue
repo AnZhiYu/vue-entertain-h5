@@ -1,19 +1,12 @@
 <!-- eslint-disable max-len -->
 <template>
   <div class="page user">
-    <div
-      class="music_icon"
-      :class="music_off ? 'music' : 'music_off'"
-      @click="play"
-    />
+    <div class="music_icon" :class="music_off ? 'music' : 'music_off'" @click="play" />
     <Transition mode="out-in">
       <div v-show="shopPageIndex1" class="pageloading wrap">
         <img class="pageloading-pemo" src="../../assets/pemo.png" />
         <div class="pageloading-loading">
-          <div
-            class="pageloading-loading_active"
-            :style="{ width: percent + '%' }"
-          ></div>
+          <div class="pageloading-loading_active" :style="{ width: percent + '%' }"></div>
           <div class="pageloading-loading_bg"></div>
           <div class="pageloading-loading_border"></div>
         </div>
@@ -27,7 +20,7 @@
             @pause="onPause"
             @play="onPlay"
             loop="loop"
-            src="../../assets/bgm.mp3"
+            src="https://h6.qiaomukeji.com/202205/Wuliangye/v7.2/resource/assets/bgm.mp3"
             controls="controls"
           ></audio>
         </div>
@@ -80,23 +73,44 @@ export default {
       process: 51,
       timer: null,
       show: false,
-      playPath:
-        "https://h6.qiaomukeji.com/202205/Wuliangye/v7.2/resource/assets/bgm.mp3",
       music_off: true,
       count: 0,
       percent: "",
       imgs: [
-        "/img/page2.png",
+        "/img/book-l.png",
+        "/img/juanzhou-copy.png",
         "/img/load1-bg.png",
+        "/img/mr-short.png",
+        "/img/page1_btn.png",
+        "/img/precess.png",
+        "/img/book-r.png",
+        "/img/juanzhou-copy2.png",
         "/img/load2-bg.png",
+        "/img/mr4-short.png",
+        "/img/page1_letter.png",
+        "/img/select-copy.png",
+        "/img/juanzhou-copy3.png",
         "/img/load3-bg.png",
+        "/img/mranniu.png",
+        "/img/page1_want.png",
+        "/img/tijiao.png",
+        "/img/cloud.png",
+        "/img/juanzhou-copy4.png",
         "/img/load4-bg.png",
-        "/img/leter.png",
-        "/img/answerbg1.png",
-        "/img/book.png",
-        "/img/want.png",
+        "/img/music.png",
+        "/img/paint-brush.png",
+        "/img/xz-short.png",
+        "/img/flagon.png",
+        "/img/juanzhou-copy5.png",
+        "/img/load5-bg.png",
+        "/img/music_off.png",
+        "/img/pemo.png",
+        "/img/xz4-short.png",
+        "/img/juanzhou-copy6.png",
+        "/img/load6-bg.png",
+        "/img/page1.png",
         "/img/pemo2.png",
-      ],
+      ]
     };
   },
 
@@ -155,8 +169,12 @@ export default {
           const percentNum = Math.floor((this.count / this.imgs.length) * 100);
           this.percent = percentNum;
         };
+
+        image.onerror = (err) => {
+          console.log('2222', img, err)
+        }
       }
-    },
+    }
   },
   created() {
     // this.loadingProcess();
@@ -176,12 +194,14 @@ export default {
         clearInterval(this.timer);
       }
       return this.process;
-    },
+    }
   },
   watch: {
     count(val) {
+      console.log(val)
       if (val === this.imgs.length) {
         // 图片加载完成后跳转页面
+        console.log('gggg')
         clearInterval(this.timer);
         this.changeIndex();
       }
@@ -190,8 +210,8 @@ export default {
       if (val) {
         clearInterval(this.timer);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="less" scoped>
@@ -255,10 +275,10 @@ export default {
 
   .pageloading {
     position: absolute;
-    background: url("../../assets/page2.png") no-repeat;
+    background: url("../../assets/page1.png") no-repeat center/ cover;
     width: 100%;
-    background-size: 100% 100%;
-    background-position: center center;
+    // background-size: 100% 100%;
+    // background-position: center center;
     z-index: 1;
 
     &-pemo {
@@ -334,7 +354,7 @@ export default {
 
   .page2 {
     width: 100%;
-    background: url("../../assets/page2.png") no-repeat;
+    background: url("../../assets/page1.png") no-repeat;
     background-size: cover;
     background-position: center center;
     z-index: 2;
@@ -361,7 +381,7 @@ export default {
       right: 0;
       margin: 0 auto;
       bottom: 99px;
-      background-image: url("../../assets/want.png");
+      background-image: url("../../assets/page1_want.png");
       background-position: top left;
       background-size: 100% auto;
       background-repeat: no-repeat;
@@ -375,7 +395,7 @@ export default {
       left: 0;
       right: 0;
       margin: 0 auto;
-      background-image: url("../../assets/leter.png");
+      background-image: url("../../assets/page1_letter.png");
       background-position: top left;
       background-size: 100% auto;
       background-repeat: no-repeat;
@@ -396,7 +416,7 @@ export default {
       -webkit-animation: myfirst2 0.8s linear 0s infinite alternate;
       /* Safari 与 Chrome */
       object-fit: scale-down;
-      background-image: url("../../assets/button2.png");
+      background-image: url("../../assets/page1_btn.png");
       background-position: center center;
       background-size: contain;
       background-repeat: no-repeat;
@@ -441,13 +461,6 @@ export default {
         height: 38px;
       }
     }
-  }
-
-  .answer1 {
-    background: url("../../assets/answerbg1.png") no-repeat center/ cover;
-    width: 100%;
-    z-index: 3;
-    position: absolute;
   }
 }
 
