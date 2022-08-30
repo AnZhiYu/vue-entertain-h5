@@ -223,7 +223,7 @@ export default {
   data() {
     return {
       name: '22',
-      shopPageIndex: 8,
+      shopPageIndex: 0,
       selectIndex: 0,
       current_yaer: {},
       foodList: [],
