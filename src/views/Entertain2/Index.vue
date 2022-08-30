@@ -326,14 +326,17 @@ export default {
     selectAppliances() {
       this.shopPageIndex = 4;
       this.selectIndex = 0;
+      this.resetBook();
     },
     selectWine() {
       this.shopPageIndex = 5;
       this.selectIndex = 0;
+      this.resetBook();
     },
     selectAlcohol() {
       this.shopPageIndex = 6;
       this.selectIndex = 0;
+      this.resetBook();
     },
     drinkFreely() {
       return false;
