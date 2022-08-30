@@ -54,7 +54,7 @@
             class="select select2"
             v-for="(item, index) in tabSelectFood"
             :key="index"
-            :class="`${item.isChecked ? 'xz' : 'mr'}`"
+            :class="`${item.isChecked ? 'xz-short' : 'mr-short'}`"
             @click="toSelect(item, index, '2')"
           >
             <img
@@ -87,7 +87,7 @@
             class="select select2"
             v-for="(item, index) in appliancesList"
             :key="index"
-            :class="`${selectIndex === item.id ? 'xz' : 'mr'}`"
+            :class="`${selectIndex === item.id ? 'xz-short' : 'mr-short'}`"
             @click="toSelect(item, index)"
           >
             <img
@@ -110,10 +110,10 @@
         <div class="load4-jz"></div>
         <div class="main main-load3">
           <div
-            class="select select3"
+            class="select select3 padding"
             v-for="(item, index) in wineList"
             :key="index"
-            :class="`${selectIndex === item.id ? 'xz' : 'mr'}`"
+            :class="`${selectIndex === item.id ? 'xz4-short' : 'mr4-short'}`"
             @click="toSelect(item, index)"
           >
             <img
@@ -132,10 +132,55 @@
       </div>
     </Transition>
     <Transition mode="out-in">
-      <div v-if="shopPageIndex === 5" class="loader4 wrap">4</div>
+      <div v-if="shopPageIndex === 5" class="loader4 wrap">
+        <div class="load5-jz"></div>
+        <div class="main main-load4">
+          <div
+            class="select4"
+            v-for="(item, index) in alcoholList"
+            :key="index"
+            :class="`${selectIndex === item.id ? 'xz' : 'mr'}`"
+            @click="toSelect(item, index)"
+          >
+            <img
+              src="../../assets/flagon.png"
+              v-if="item.id === selectIndex"
+              class="flagon flagon5"
+            />
+            {{ item.name }}
+          </div>
+          <div class="tijao" @click="selectAlcohol">
+            {{
+              current_yaer.id === 3
+                ? "下一题"
+                : "答错了，再来一次吧~"
+            }}
+          </div>
+        </div>
+      </div>
     </Transition>
-
-    <div v-if="shopPageIndex === 6" class="loader5 wrap">4</div>
+    <Transition mode="out-in">
+      <div v-if="shopPageIndex === 6" class="loader5 wrap">
+        <div class="load6-jz"></div>
+          <div class="main main-load5 load5">
+            <div
+              class="select4"
+              v-for="(item, index) in freelyList"
+              :key="index"
+              :class="`${selectIndex === item.id ? 'xz' : 'mr'}`"
+              @click="toSelect(item, index)"
+            >
+              <img
+                src="../../assets/flagon.png"
+                v-if="item.id === selectIndex"
+                class="flagon flagon6"
+              />
+              {{ item.name }}
+            </div>
+            <div class="tijao" @click="drinkFreely">请选择喜欢的祝酒词</div>
+          </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -180,6 +225,19 @@ export default {
         { id: 3, name: "3. 九龙坛·蓝坛" },
         { id: 4, name: "4. 经典五粮液" },
         { id: 5, name: "5. 39℃五粮液" },
+      ],
+      alcoholList: [
+        { id: 1, name: "A. 大米、小麦、糯米、玉米、高粱" },
+        { id: 2, name: "B. 大豆、小麦、糯米、玉米、高粱" },
+        { id: 3, name: "C. 大米、红豆、糯米、玉米、高粱" },
+      ],
+      freelyList: [
+        { id: 1, name: "1. 人生得意须尽欢，莫使金樽空对月。" },
+        { id: 2, name: "2. 对酒当歌，人生几何？" },
+        { id: 3, name: "3. 酒逢知己千杯少" },
+        { id: 4, name: "4. 一生大笑能几回，斗酒相逢须醉。" },
+        { id: 5, name: "5. 烹羊宰牛且为乐，会须一饮三百杯。" },
+        { id: 6, name: "6. 今日听君歌一曲，暂凭杯酒长精神。" },
       ],
       expand: 6,
       timer: null,
@@ -245,6 +303,14 @@ export default {
       this.selectIndex = 0;
     },
     selectWine() {
+      this.shopPageIndex = 5;
+      this.selectIndex = 0;
+    },
+    selectAlcohol() {
+      this.shopPageIndex = 6;
+      this.selectIndex = 0;
+    },
+    drinkFreely() {
       return false;
     },
     resetBook() {
@@ -323,6 +389,14 @@ export default {
     background: url("../../assets/load4-bg.png");
     background-size: 100% 100%;
   }
+  .loader4{
+    background: url("../../assets/load5-bg.png");
+    background-size: 100% 100%;
+  }
+  .loader5{
+    background: url("../../assets/load6-bg.png");
+    background-size: 100% 100%;
+  }
   .jz {
     width: 100%;
     height: 117px;
@@ -388,6 +462,18 @@ export default {
     background: url("../../assets/juanzhou-copy4.png");
     background-size: 100% 100%;
   }
+  .load5-jz{
+    width: 100%;
+    height: 117px;
+    background: url("../../assets/juanzhou-copy5.png");
+    background-size: 100% 100%;
+  }
+  .load6-jz{
+    width: 100%;
+    height: 117px;
+    background: url("../../assets/juanzhou-copy6.png");
+    background-size: 100% 100%;
+  }
   .main {
     width: 100%;
     display: flex;
@@ -416,7 +502,22 @@ export default {
       background: url("../../assets/select-copy.png");
       background-size: 100% 100%;
     }
-
+    .xz-short{
+      background: url("../../assets/xz-short.png");
+      background-size: 100% 100%;
+    }
+    .mr-short{
+      background: url("../../assets/mr-short.png");
+      background-size: 100% 100%;
+    }
+    .xz4-short{
+      background: url("../../assets/xz4-short.png");
+      background-size: 100% 100%;
+    }
+    .mr4-short{
+      background: url("../../assets/mr4-short.png");
+      background-size: 100% 100%;
+    }
     .flagon {
       width: 54px;
       height: 38px;
@@ -424,7 +525,14 @@ export default {
       right: 16%;
       margin-bottom: 26px;
     }
-
+    .flagon5{
+      width: 44px;
+      height: 34px;
+      right: 15%;
+    }
+    .flagon6{
+      right: 10%;
+    }
     .paint {
       width: 44px;
       height: 38px;
@@ -487,6 +595,38 @@ export default {
       height: 36px;
       padding-left: 16px;
       box-sizing: border-box;
+    }
+    .padding{padding-left: 25px;box-sizing: border-box;}
+  }
+  .main-load4,.main-load5{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .select4{
+      height: 39px;
+      padding-left: 22px;
+      box-sizing: border-box;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+  }
+  .main-load4{
+    padding: 0 35px;
+    box-sizing: border-box;
+    .select4{
+      width:270px;
+    }
+  }
+  .load5{
+    padding: 0 15px;
+    // width: 312px;
+    padding-left: 15px;
+    box-sizing: border-box;
+    .select4{
+      width: 100%;
     }
   }
 }
