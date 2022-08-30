@@ -123,10 +123,10 @@
           <div class="btn">
             <div v-if="!wineSelectList.length" class="tijao">
               请选择喜欢的美酒
-              </div>
-              <div v-else class="tijao" @click="selectWine">
-                下一题
-              </div>
+            </div>
+            <div v-else class="tijao" @click="selectWine">
+              下一题
+            </div>
           </div>
         </div>
       </div>
@@ -157,9 +157,15 @@
             {{ item.name }}
           </div>
           <Transition name="answer">
-          <div  class="tijao" @click="selectAlcohol">
-            {{ current_yaer.id === 1 ? "恭喜答对,下一题" : !current_yaer.id ?"请选择正确的选项~" :"答错了，再来一次吧~" }}
-          </div>
+            <div class="tijao" @click="selectAlcohol">
+              {{
+                current_yaer.id === 1
+                  ? "恭喜答对,下一题"
+                  : !current_yaer.id
+                  ? "请选择正确的选项~"
+                  : "答错了，再来一次吧~"
+              }}
+            </div>
           </Transition>
         </div>
       </div>
@@ -195,8 +201,8 @@
     </Transition>
     <Transition mode="out-in">
       <div v-if="shopPageIndex === 7" class="loader7 wrap">
-        <input type="text" class="loader7-input" v-model="name">
-        <div class="loader7-btn" v-if="name"  @click="getRoult"></div>
+        <input type="text" class="loader7-input" v-model="name" />
+        <div class="loader7-btn" v-if="name" @click="getRoult"></div>
       </div>
     </Transition>
 
@@ -204,10 +210,8 @@
       <div v-if="shopPageIndex === 8" class="loader8 wrap">
         <div class="loader8-big">
           <div class="loader8-big-top"></div>
-          <div
-            :class="`loader8-big-resoult resoult${selectIndex}`"
-          >
-            <div class="loader8-big-resoult_name">{{name}}</div>
+          <div :class="`loader8-big-resoult resoult${selectIndex}`">
+            <div class="loader8-big-resoult_name">{{ name }}</div>
           </div>
           <div class="loader8-big-bottom"></div>
         </div>
@@ -222,11 +226,10 @@
 
 export default {
   name: "answer-warp",
-  components: {
-  },
+  components: {},
   data() {
     return {
-      name: '',
+      name: "",
       shopPageIndex: 1,
       selectIndex: 0,
       current_yaer: {},
@@ -358,7 +361,7 @@ export default {
       if (!this.selectIndex) return;
       this.shopPageIndex = 5;
       this.selectIndex = 0;
-      this.current_yaer = {}
+      this.current_yaer = {};
       this.resetBook();
     },
     selectAlcohol() {
@@ -397,12 +400,11 @@ export default {
 </script>
 <style lang="less" scoped>
 .user {
-
-  .loader8{
+  .loader8 {
     // background: url("../../assets/load7-bg.png") no-repeat center/ cover;
-    background-image: linear-gradient(-180deg,#f1d9ad, #e0d9ca) !important;
+    background-image: linear-gradient(-180deg, #f1d9ad, #e0d9ca) !important;
 
-    &-book{
+    &-book {
       position: absolute;
       left: 0;
       right: 0;
@@ -415,7 +417,7 @@ export default {
       }
     }
 
-    &-big{
+    &-big {
       width: 291px;
       height: 545px;
       position: absolute;
@@ -430,7 +432,7 @@ export default {
       background-repeat: no-repeat;
       overflow: hidden;
       animation: upAndDown 4s linear 0s;
-      &-top{
+      &-top {
         position: absolute;
         top: 0px;
         height: 14px;
@@ -439,55 +441,56 @@ export default {
         background: url("../../assets/page8_up.png") no-repeat center/ cover;
       }
 
-      .resoult1{
+      .resoult1 {
         background: url("../../assets/page8-result1.png") no-repeat center/ cover;
       }
 
-      .resoult2{
+      .resoult2 {
         background: url("../../assets/page8-result2.png") no-repeat center/ cover;
       }
 
-      .resoult3{
+      .resoult3 {
         background: url("../../assets/page8-result3.png") no-repeat center/ cover;
       }
 
-      .resoult4{
+      .resoult4 {
         background: url("../../assets/page8-result4.png") no-repeat center/ cover;
       }
 
-      .resoult5{
+      .resoult5 {
         background: url("../../assets/page8-result5.png") no-repeat center/ cover;
       }
 
-      .resoult6{
+      .resoult6 {
         background: url("../../assets/page8-result6.png") no-repeat center/ cover;
       }
-      &-resoult{
+      &-resoult {
         width: 245px;
         height: 474px;
-        // background: url("../../assets/page8-result1.png") no-repeat center/ cover;
+        background: url("../../assets/page8-result1.png") no-repeat center/ cover;
         margin: 0 auto;
         margin-top: 36px;
         position: relative;
 
-        &_name{
+        &_name {
           position: absolute;
-          bottom: 60px;
-          left: 80px;
+          bottom: 55px;
+          // left: 30%;
+          padding-right: 60px;
+          width: 100%;
+          text-align: center;
           font-size: 14px;
-          color: #534F4A;
+          color: #534f4a;
         }
       }
 
-      &-bottom{
+      &-bottom {
         height: 14px;
         width: 100%;
         position: absolute;
         bottom: -3px;
         background: url("../../assets/page8_down.png") no-repeat center/ cover;
-
       }
-
     }
 
     @keyframes upAndDown {
@@ -499,7 +502,6 @@ export default {
         height: 545px;
       }
     }
-
   }
 
   // font-size: 15px;
@@ -582,12 +584,12 @@ export default {
     // background-size: 100% 100%;
   }
 
-  .loader7{
+  .loader7 {
     background: url("../../assets/load7-bg.png") no-repeat center/ cover;
 
-    &-input{
-      background: #FEE3C5;
-      border: 1px solid #C0B2A4;
+    &-input {
+      background: #fee3c5;
+      border: 1px solid #c0b2a4;
       width: 174px;
       height: 26px;
       position: absolute;
@@ -599,7 +601,7 @@ export default {
       font-size: 16px;
     }
 
-    &-btn{
+    &-btn {
       position: absolute;
       bottom: 35%;
       right: 0;
@@ -711,11 +713,11 @@ export default {
       background: url("../../assets/mr4-short.png");
       background-size: 100% 100%;
     }
-    .xz6-short{
+    .xz6-short {
       background: url("../../assets/xz6-short.png");
       background-size: 100% 100%;
     }
-    .xz5-short{
+    .xz5-short {
       background: url("../../assets/xz5-short.png");
       background-size: 100% 100%;
     }
