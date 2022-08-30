@@ -204,7 +204,9 @@
       <div v-if="shopPageIndex === 8" class="loader8 wrap">
         <div class="loader8-big">
           <div class="loader8-big-top"></div>
-          <div class="loader8-big-resoult"></div>
+          <div class="loader8-big-resoult">
+            <div class="loader8-big-resoult_name">{{name}}</div>
+          </div>
           <div class="loader8-big-bottom"></div>
         </div>
       </div>
@@ -422,6 +424,15 @@ export default {
         background: url("../../assets/page8-result1.png") no-repeat center/ cover;
         margin: 0 auto;
         margin-top: 36px;
+        position: relative;
+
+        &_name{
+          position: absolute;
+          bottom: 60px;
+          left: 80px;
+          font-size: 14px;
+          color: #534F4A;
+        }
       }
 
       &-bottom{
