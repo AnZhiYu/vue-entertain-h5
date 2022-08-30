@@ -99,6 +99,10 @@ export default {
         "/img/book4.png",
         "/img/book5.png",
         "/img/book6.png",
+        "/img/page8_down.png",
+        "/img/page8_up.png",
+        "/img/page8-bg.png",
+        "/img/page8-result1.png",
       ]
     };
   },
