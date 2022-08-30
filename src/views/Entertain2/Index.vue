@@ -222,7 +222,7 @@ export default {
   },
   data() {
     return {
-      name: '22',
+      name: '',
       shopPageIndex: 1,
       selectIndex: 0,
       current_yaer: {},
