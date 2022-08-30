@@ -1,5 +1,7 @@
+<!-- eslint-disable max-len -->
 <template>
   <div class="page user">
+    <div class="music_icon" :class="music_off ? 'music':'music_off'" @click="play" />
     <Transition mode="out-in" name="fade">
       <div v-show="shopPageIndex1" class="pageloading wrap">
         <img class="pageloading-pemo" src="../../assets/pemo.png" />
@@ -9,8 +11,17 @@
           <div class="pageloading-loading_border"></div>
         </div>
         <div class="pageloading-count">{{ this.handleProcess }}%</div>
-        <div class="mp3">
-          <audio controls ref="audio" src="../../assets/bgm.mp3"></audio>
+        <!-- <div v-show="false">
+        </div> -->
+        <div class="mp3" v-show="false">
+          <audio ref="audio"
+          autoplay="autoplay"
+            @pause="onPause"
+            @play="onPlay"
+            loop="loop"
+            src="../../assets/bgm.mp3"
+            controls="controls">
+          </audio>
         </div>
         <!-- <img class="pageloading-loading" src="../../assets/pemo.png" /> -->
       </div>
@@ -61,16 +72,21 @@ export default {
       process: 51,
       timer: null,
       show: false,
-      playPath: "https://h6.qiaomukeji.com/202205/Wuliangye/v7.2/resource/assets/bgm.mp3"
+      playPath: "https://h6.qiaomukeji.com/202205/Wuliangye/v7.2/resource/assets/bgm.mp3",
+      music_off: true,
     };
   },
 
   methods: {
+    controlMa3() {
+      console.log(this.refs.audio, 'audio');
+      if (this.$refs.audio) this.$refs.audio.audioHuds = false;
+    },
     loadingProcess() {
       this.process += 1;
       this.timer = setInterval(() => {
         this.process += 1;
-      }, 10);
+      }, 30);
     },
     changeIndex() {
       this.shopPageIndex2 = true;
@@ -83,36 +99,26 @@ export default {
       // 调组件内方法 展开book
       this.$refs.answer.loadingProcess();
     },
-    playMp3() {
-      const audioPlay = this.$refs.audio;
-      audioPlay.src = this.playPath;
-      console.log("audioPlay", audioPlay);
-      audioPlay.play();
-      if (window.WeixinJSBridge) {
-        window.WeixinJSBridge.invoke("getNetworkType", {}, () => {
-          // this.$refs.audio.load()
-          setTimeout(() => {
-            audioPlay.play();
-            audioPlay.onended = function () {
-              audioPlay.play();
-            };
-          }, 300);
-        });
+    play() {
+      if (this.music_off) {
+        // 播放音频
+        this.$refs.audio.play();
+        this.music_off = false;
       } else {
-        document.addEventListener(
-          "WeixinJSBridgeReady",
-          () => {
-            window.WeixinJSBridge.invoke("getNetworkType", {}, () => {
-              // this.$refs.audio.load()
-              setTimeout(() => {
-                audioPlay.play();
-              }, 300);
-            });
-          },
-          false
-        );
+        // 暂停音频
+        console.log("切换");
+        this.music_off = true;
+        this.$refs.audio.pause();
       }
-    }
+    },
+    // 当音频播放
+    onPlay() {
+      this.audio.playing = true;
+    },
+    // 当音频暂停
+    onPause() {
+      this.audio.playing = false;
+    },
   },
   created() {
     this.loadingProcess();
@@ -125,7 +131,6 @@ export default {
   computed: {
     handleProcess() {
       if (this.process === 100) {
-        // console.log('this.process', this.process);
         clearInterval(this.timer);
         this.changeIndex();
       }
@@ -171,14 +176,10 @@ export default {
   // background: #d18106;
 
   .mp3 {
-    background: url("../../assets/answerbg1.png");
     width: 30px;
     height: 30px;
     border-radius: 30px;
-    // position: fixed;
-    top: 0px;
-    right: 30px;
-    // overflow: hidden;
+    position: absolute;
     z-index: 9;
   }
 
@@ -192,7 +193,7 @@ export default {
     position: absolute;
     background: url("../../assets/page2.png") no-repeat;
     width: 100%;
-    background-size: 100% auto;
+    background-size: 100% 100%;
     background-position: center center;
     z-index: 1;
 
@@ -372,5 +373,21 @@ export default {
     z-index: 3;
     position: absolute;
   }
+}
+.music_icon{
+  width: 24px;
+  height: 24px;
+  position: fixed;
+  right: 6px;
+  top: 8px;
+  z-index: 6;
+}
+.music{
+  background-image: url('../../assets/music.png');
+  background-size: 100% 100%;
+}
+.music_off{
+  background-image: url('../../assets/music_off.png');
+  background-size: 100% 100%;
 }
 </style>

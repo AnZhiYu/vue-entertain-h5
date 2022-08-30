@@ -39,18 +39,13 @@
         </div>
       </div>
       <div class="main main-load2">
-        <div
-          class="select select2"
-          v-for="(item, index) in tabSelectFood"
-          :key="index"
-          :class="`${item.isChecked ? 'xz' : 'mr'}`"
-          @click="toSelect(item, index, '2')"
-        >
-          <img src="../../assets/paint-brush.png" v-if="item.isChecked" class="paint " />
+        <div class="select select2" v-for="(item, index)  in tabSelectFood" :key="index"
+          :class="`${item.isChecked ? 'xz' : 'mr'}`" @click="toSelect(item, index, '2')">
+          <img src="../../assets/paint-brush.png" v-if="item.isChecked" class="paint">
           {{ item.name }}
         </div>
         <div class="btn">
-          <div class="tijao" @click="selectFood">恭喜，快来开席吧~</div>
+          <div class="tijao" @click="selectFood">{{!foodList.length? '请选择喜欢的美食':'下一题'}}</div>
         </div>
       </div>
     </div>
@@ -64,22 +59,29 @@
         </div>
       </div>
       <div class="main main-load2">
-        <div
-          class="select select2"
-          v-for="(item, index) in appliancesList"
-          :key="index"
-          :class="`${selectIndex === item.id ? 'xz' : 'mr'}`"
-          @click="toSelect(item, index)"
-        >
-          <img src="../../assets/paint-brush.png" v-if="foodList.includes(item.id)" class="paint" />
+        <div class="select select2" v-for="(item, index)  in appliancesList" :key="index"
+          :class="`${selectIndex === item.id ? 'xz' : 'mr'}`" @click="toSelect(item, index)">
+          <img src="../../assets/paint-brush.png" v-if="item.id === selectIndex" class="paint">
           {{ item.name }}
         </div>
         <div class="btn">
-          <div class="tijao" @click="selectFood">恭喜，快来开席吧~</div>
+          <div class="tijao" @click="selectAppliances">{{!selectIndex ? '请选择喜欢的饮具':'下一题'}}</div>
         </div>
       </div>
     </div>
-    <div v-if="shopPageIndex === 4" class="loader3 wrap">4</div>
+    <div v-if="shopPageIndex === 4" class="loader3 wrap">
+      <div class="load4-jz"></div>
+      <div class="main main-load3">
+        <div class="select select3" v-for="(item, index)  in wineList" :key="index"
+          :class="`${selectIndex === item.id ? 'xz' : 'mr'}`" @click="toSelect(item, index)">
+          <img src="../../assets/paint-brush.png" v-if="item.id === selectIndex" class="paint">
+          {{ item.name }}
+        </div>
+        <div class="btn">
+          <div class="tijao" @click="selectWine">{{!selectIndex ? '请选择喜欢的美酒':'下一题'}}</div>
+        </div>
+      </div>
+    </div>
     <div v-if="shopPageIndex === 5" class="loader4 wrap">4</div>
     <div v-if="shopPageIndex === 6" class="loader5 wrap">4</div>
   </div>
@@ -114,14 +116,8 @@ export default {
         { id: 8, name: "8.蜜饯", isChecked: false },
         { id: 9, name: "9.宜宾燃面", isChecked: false }
       ],
-      appliancesList: [
-        { id: 1, name: "1. 觥" },
-        { id: 2, name: "2. 觚" },
-        { id: 3, name: "3. 尊" },
-        { id: 4, name: "4.爵" }
-      ],
-      expand: 6,
-      timer: null
+      appliancesList: [{ id: 1, name: '1. 觥' }, { id: 2, name: '2. 觚' }, { id: 3, name: '3. 尊' }, { id: 4, name: '4.爵' }],
+      wineList: [{ id: 1, name: '1. 五粮液元旦纪念酒' }, { id: 2, name: '2. 第八代五粮液' }, { id: 3, name: '3. 九龙坛·蓝坛' }, { id: 4, name: '4. 经典五粮液' }, { id: 5, name: '5. 39℃五粮液' }],
     };
   },
   computed: {
@@ -143,9 +139,9 @@ export default {
           this.foodList.push(item);
           this.foodList = [...new Set(this.foodList)];
           if (!this.tabSelectFood[index].isChecked) {
-            this.tabSelectFood.forEach(itemx => {
+            this.tabSelectFood.forEach((itemed) => {
               // eslint-disable-next-line no-param-reassign
-              if (item.id === itemx.id) itemx.isChecked = true;
+              if (item.id === itemed.id) itemed.isChecked = true;
             });
           } else {
             this.tabSelectFood[index].isChecked = false;
@@ -164,16 +160,22 @@ export default {
     answer() {
       if (this.current_yaer.id !== 3) return;
       this.shopPageIndex = 2;
+      this.selectIndex = 0;
 
       // 开始画卷
       this.resetBook();
     },
     selectFood() {
       this.shopPageIndex = 3;
+      this.selectIndex = 0;
       // 开始画卷
       this.resetBook();
     },
     selectAppliances() {
+      this.shopPageIndex = 4;
+      this.selectIndex = 0;
+    },
+    selectWine() {
       return false;
     },
     resetBook() {
@@ -230,7 +232,10 @@ export default {
     background: url("../../assets/load3-bg.png");
     background-size: 100% 100%;
   }
-
+  .loader3{
+    background: url("../../assets/load4-bg.png");
+    background-size: 100% 100%;
+  }
   .jz {
     width: 100%;
     height: 117px;
@@ -290,7 +295,12 @@ export default {
     background: url("../../assets/juanzhou-copy3.png");
     background-size: 100% 100%;
   }
-
+  .load4-jz{
+    width: 100%;
+    height: 117px;
+    background: url('../../assets/juanzhou-copy4.png');
+    background-size: 100% 100%;
+  }
   .main {
     width: 100%;
     display: flex;
@@ -375,6 +385,21 @@ export default {
       height: 39px;
       padding-left: 28px;
       position: relative;
+    }
+  }
+  .main-load3{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    // padding: 0 9px 0 14px;
+    box-sizing: border-box;
+    .select3{
+      position: relative;
+      width: 160px;
+      height: 36px;
+      padding-left: 16px;
+      box-sizing: border-box;
     }
   }
 }
