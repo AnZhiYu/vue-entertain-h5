@@ -39,6 +39,11 @@
     <Transition mode="out-in">
       <answer-wrap v-show="shopPageIndex3" ref="answer"></answer-wrap>
     </Transition>
+
+    <Transition name="page2">
+      <div v-show="resoultPage" class="end wrap">
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -50,6 +55,7 @@ export default {
   components: { answerWrap },
   data() {
     return {
+      resoultPage: false,
       shopPageIndex1: true,
       shopPageIndex2: false,
       shopPageIndex3: false,
@@ -61,35 +67,29 @@ export default {
       percent: "",
       imgs: [
         "/img/book-l.png",
-        "/img/juanzhou-copy.png",
         "/img/load1-bg.png",
         "/img/mr-short.png",
         "/img/page1_btn.png",
         "/img/precess.png",
         "/img/book-r.png",
-        "/img/juanzhou-copy2.png",
         "/img/load2-bg.png",
         "/img/mr4-short.png",
         "/img/page1_letter.png",
         "/img/select-copy.png",
-        "/img/juanzhou-copy3.png",
         "/img/load3-bg.png",
         "/img/mranniu.png",
         "/img/page1_want.png",
         "/img/tijiao.png",
         "/img/cloud.png",
-        "/img/juanzhou-copy4.png",
         "/img/load4-bg.png",
         "/img/music.png",
         "/img/paint-brush.png",
         "/img/xz-short.png",
         "/img/flagon.png",
-        "/img/juanzhou-copy5.png",
         "/img/load5-bg.png",
         "/img/music_off.png",
         "/img/pemo.png",
         "/img/xz4-short.png",
-        "/img/juanzhou-copy6.png",
         "/img/load6-bg.png",
         "/img/page1.png",
         "/img/pemo2.png",
@@ -112,11 +112,11 @@ export default {
       if (this.shopPageIndex1) {
         this.percent = 100;
         this.shopPageIndex2 = true;
+        this.shopPageIndex1 = false;
       }
     },
     goAnswer() {
       this.shopPageIndex3 = true;
-      this.shopPageIndex1 = false;
       this.shopPageIndex2 = false;
       // 调组件内方法 展开book
       this.$refs.answer.loadingProcess();
@@ -435,6 +435,13 @@ export default {
         height: 38px;
       }
     }
+  }
+
+  .end{
+    position: absolute;
+    background: url("../../assets/load7-bg.png") no-repeat center/ cover;
+    width: 100%;
+    z-index: 1;
   }
 }
 
