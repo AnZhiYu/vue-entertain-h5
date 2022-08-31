@@ -149,11 +149,7 @@
             :class="`${selectIndex === item.id ? 'xz5-short' : 'mr'}`"
             @click="toSelect(item, index)"
           >
-            <img
-              src="../../assets/flagon.png"
-              v-if="item.id === selectIndex"
-              class="flagon flagon5"
-            />
+          <img src="../../assets/paint-brush.png" v-if="item.id === selectIndex" class="paint flagon5" />
             {{ item.name }}
           </div>
           <Transition name="answer">
@@ -254,7 +250,7 @@ export default {
       appliancesList: [
         { id: 1, name: "1. 觥" },
         { id: 2, name: "2. 觚" },
-        { id: 3, name: "3. 尊" },
+        { id: 3, name: "3. 樽" },
         { id: 4, name: "4. 爵" }
       ],
       wineList: [
@@ -262,7 +258,7 @@ export default {
         { id: 2, name: "2. 第八代五粮液", isChecked: false },
         { id: 3, name: "3. 九龙坛·蓝坛", isChecked: false },
         { id: 4, name: "4. 经典五粮液", isChecked: false },
-        { id: 5, name: "5. 39℃五粮液", isChecked: false }
+        { id: 5, name: "5. 五粮液39度", isChecked: false }
       ],
       alcoholList: [
         { id: 1, name: "A. 大米、小麦、糯米、玉米、高粱" },
@@ -548,7 +544,7 @@ export default {
     background: #ccc;
     width: 100%;
     height: 100vh;
-    padding: 31px 15px 80px 15px;
+    padding: 31px 15px 60px 15px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -731,7 +727,7 @@ export default {
     .flagon5 {
       width: 44px;
       height: 34px;
-      right: 15%;
+      right: 7% !important;
     }
     .flagon6 {
       right: 10%;

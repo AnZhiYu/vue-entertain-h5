@@ -108,6 +108,7 @@ export default {
         "/img/page8-result4.png",
         "/img/page8-result5.png",
         "/img/page8-result6.png",
+        "/img/xz6-short.png",
       ]
     };
   },
